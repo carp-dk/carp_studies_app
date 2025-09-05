@@ -39,7 +39,7 @@
 				<key>CFBundleURLIconFile</key>
 				<string>carp_logo</string>
 				<key>CFBundleURLName</key>
-				<string>cans.cachet.dk</string>
+				<string>com.cachet.carpstudyapp</string>
 				<key>CFBundleURLSchemes</key>
 				<array>
 					<string>carp-studies</string>

@@ -45,18 +45,9 @@ class _LoginPageState extends State<LoginPage> {
             ),
             child: TextButton(
               onPressed: () {
-                showDialog<bool>(
+                showDialog<void>(
                   context: context,
-                  builder: (context) => PopScope(
-                    onPopInvokedWithResult: (didPop, result) async {
-                      WidgetsBinding.instance.addPostFrameCallback((_) async {
-                        if (didPop && result == true) {
-                          Navigator.of(context).pop();
-                        }
-                      });
-                    },
-                    child: QRViewExample(),
-                  ),
+                  builder: (context) => QRViewExample(),
                 );
               },
               child: Text(
@@ -159,15 +150,25 @@ class _QRViewExampleState extends State<QRViewExample> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  if (result != null)
-                    Text(
-                        'Barcode Type: ${(result!.format)}   Data: ${result!.code}')
-                  else
-                    const Text('Scan a code'),
+                  // if (result != null)
+                  //   Text(
+                  //       'Barcode Type: ${(result!.format)}   Data: ${result!.code}')
+                  // else
+                  //   const Text('Scan a code'),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
+                      Container(
+                        margin: const EdgeInsets.all(8),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('Close',
+                              style: TextStyle(fontSize: 20)),
+                        ),
+                      ),
                       Container(
                         margin: const EdgeInsets.all(8),
                         child: ElevatedButton(
@@ -270,17 +271,18 @@ class _QRViewExampleState extends State<QRViewExample> {
 
       final code = scanData.code;
 
-    if (code != null && Uri.tryParse(code)?.hasAbsolutePath == true) {
-      final Uri uri = Uri.parse(code);
+      if (code != null && Uri.tryParse(code)?.hasAbsolutePath == true) {
+        final Uri uri = Uri.parse(code);
 
-      if (await canLaunchUrl(uri)) {
-        await launchUrl(uri, mode: LaunchMode.platformDefault);
-        await controller.pauseCamera();
-        Navigator.of(context).pop();
-      } else {
-        debugPrint('Could not launch $code');
+        if (await canLaunchUrl(uri)) {
+          await launchUrl(uri, mode: LaunchMode.platformDefault);
+          await controller.pauseCamera();
+          Navigator.of(context).pop();
+          Navigator.of(context).pop();
+        } else {
+          debugPrint('Could not launch $code');
+        }
       }
-    }
     });
   }
 

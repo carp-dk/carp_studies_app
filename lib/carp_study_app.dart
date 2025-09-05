@@ -62,7 +62,7 @@ class CarpStudyAppState extends State<CarpStudyApp> {
                       
                       await bloc.backend.authenticate();
                     }
-                    if (context.mounted) return CarpStudyAppState.homeRoute;
+                    // if (context.mounted) return CarpStudyAppState.homeRoute;
                   } else {
                     showDialog<bool>(
                       context: context,
