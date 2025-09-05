@@ -18,6 +18,8 @@ PODS:
     - Flutter
   - connectivity_plus (0.0.1):
     - Flutter
+  - dchs_flutter_beacon (0.6.1):
+    - Flutter
   - device_info_plus (0.0.1):
     - Flutter
   - Flutter (1.0.0)
@@ -56,6 +58,7 @@ PODS:
     - Movesense
     - SwiftProtobuf
   - Movesense (3.27.0)
+  - MTBBarcodeScanner (5.0.11)
   - network_info_plus (0.0.1):
     - Flutter
   - oidc_ios (0.0.1):
@@ -85,6 +88,9 @@ PODS:
     - RxSwift (~> 6.5.0)
     - SwiftProtobuf (~> 1.0)
     - Zip (~> 2.1.2)
+  - qr_code_scanner_plus (0.2.6):
+    - Flutter
+    - MTBBarcodeScanner
   - RxSwift (6.5.0)
   - screen_state (1.0.0):
     - Flutter
@@ -111,6 +117,7 @@ DEPENDENCIES:
   - battery_plus (from `.symlinks/plugins/battery_plus/ios`)
   - camera_avfoundation (from `.symlinks/plugins/camera_avfoundation/ios`)
   - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
+  - dchs_flutter_beacon (from `.symlinks/plugins/dchs_flutter_beacon/ios`)
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
   - Flutter (from `Flutter`)
   - flutter_activity_recognition (from `.symlinks/plugins/flutter_activity_recognition/ios`)
@@ -136,6 +143,7 @@ DEPENDENCIES:
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
   - PhoneNumberKit (~> 3.7)
   - polar (from `.symlinks/plugins/polar/ios`)
+  - qr_code_scanner_plus (from `.symlinks/plugins/qr_code_scanner_plus/ios`)
   - screen_state (from `.symlinks/plugins/screen_state/ios`)
   - sensors_plus (from `.symlinks/plugins/sensors_plus/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
@@ -148,6 +156,7 @@ SPEC REPOS:
     - Alamofire
     - AppAuth
     - flutter_sound_core
+    - MTBBarcodeScanner
     - PhoneNumberKit
     - PolarBleSdk
     - RxSwift
@@ -167,6 +176,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/camera_avfoundation/ios"
   connectivity_plus:
     :path: ".symlinks/plugins/connectivity_plus/ios"
+  dchs_flutter_beacon:
+    :path: ".symlinks/plugins/dchs_flutter_beacon/ios"
   device_info_plus:
     :path: ".symlinks/plugins/device_info_plus/ios"
   Flutter:
@@ -215,6 +226,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/permission_handler_apple/ios"
   polar:
     :path: ".symlinks/plugins/polar/ios"
+  qr_code_scanner_plus:
+    :path: ".symlinks/plugins/qr_code_scanner_plus/ios"
   screen_state:
     :path: ".symlinks/plugins/screen_state/ios"
   sensors_plus:
@@ -242,6 +255,7 @@ SPEC CHECKSUMS:
   battery_plus: b42253f6d2dde71712f8c36fef456d99121c5977
   camera_avfoundation: be3be85408cd4126f250386828e9b1dfa40ab436
   connectivity_plus: cb623214f4e1f6ef8fe7403d580fdad517d2f7dd
+  dchs_flutter_beacon: 9524f6f12818fa402330f0d801ac25d0675e7391
   device_info_plus: 21fcca2080fbcd348be798aa36c3e5ed849eefbe
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_activity_recognition: 52dfad4c1e9cec99f0841b3ed0efcc9d424b3deb
@@ -259,6 +273,7 @@ SPEC CHECKSUMS:
   location: 155caecf9da4f280ab5fe4a55f94ceccfab838f8
   mdsflutter: bd3c0b3335d50947d1a192cf70f930e0fb04a766
   Movesense: 5ee7f342042aff32d24924b7f3fe4f2e86532522
+  MTBBarcodeScanner: f453b33c4b7dfe545d8c6484ed744d55671788cb
   network_info_plus: cf61925ab5205dce05a4f0895989afdb6aade5fc
   oidc_ios: 16966cad509ce6850ca4ca1216c5138bef2a8726
   open_settings_plus: d19f91e8a04649358a51c19b484ce2e637149d70
@@ -269,6 +284,7 @@ SPEC CHECKSUMS:
   PhoneNumberKit: ec00ab8cef5342c1dc49fadb99d23fa7e66cf0ef
   polar: bc78b0a6fce15cad0a88ad8eb831fa76f709df7b
   PolarBleSdk: e3df6f62b6ed34701d2e1d74ebe24fd8245062ca
+  qr_code_scanner_plus: 7e087021bc69873140e0754750eb87d867bed755
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
   screen_state: 52d6e997d31bddba6417c60d9cdd22effd0320a7
   sensors_plus: 6a11ed0c2e1d0bd0b20b4029d3bad27d96e0c65b
