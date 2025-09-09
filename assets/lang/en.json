@@ -232,8 +232,6 @@
   "tasks.participant_data.full_name.first_name": "First Name",
   "tasks.participant_data.full_name.middle_name": "Middle Name (Optional)",
   "tasks.participant_data.full_name.last_name": "Last Name",
-  "tasks.participant_data.informed_consent.title": "Add informed consent",
-  "tasks.participant_data.informed_consent.description": "Add informed consent",
   "tasks.participant_data.ssn.title": "Add Social Security No.",
   "tasks.participant_data.ssn.country": "Country",
   "tasks.participant_data.ssn.ssn": "SSN No.",
