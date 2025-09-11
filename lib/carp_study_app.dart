@@ -50,16 +50,22 @@ class CarpStudyAppState extends State<CarpStudyApp> {
               path: homeRoute,
               parentNavigatorKey: _shellNavigatorKey,
               redirect: (context, state) async {
-                print(
-                    '''im home, ocome over babe. im alone. no i cant. but my parents arent home. ${state.uri.host}
-                     ${state.uri.path} ${state.uri.pathSegments} ${state.uri.scheme} ${state.uri.userInfo} ${state.uri.port} ${state.uri.query} ${state.uri.queryParameters}''');
+                // print(
+                //     '''im home, ocome over babe. im alone. no i cant. but my parents arent home.
+                //     host: ${state.uri.host}
+                //      path: ${state.uri.path}
+                //      pathSegments: ${state.uri.pathSegments}
+                //      scheme: ${state.uri.scheme}
+                //      userInfo: ${state.uri.userInfo}
+                //      port: ${state.uri.port}
+                //      query: ${state.uri.query}
+                //      queryParameters[code]: ${state.uri.queryParameters['code']}''');
 
                 if (state.uri.queryParameters.containsKey("session_state")) {
                   bool isConnected = await bloc.checkConnectivity();
                   if (isConnected) {
                     await bloc.backend.initialize();
                     if (!bloc.backend.isAuthenticated) {
-                      
                       await bloc.backend.authenticate();
                     }
                     // if (context.mounted) return CarpStudyAppState.homeRoute;
@@ -158,6 +164,107 @@ class CarpStudyAppState extends State<CarpStudyApp> {
       //             : (bloc.user == null ? LoginPage.route : null);
       //       }
       //     }),
+
+      // GoRoute(
+      //   path: '/anonymous',
+      //   parentNavigatorKey: _rootNavigatorKey,
+      //   redirect: (context, state) => InvitationListPage.route,
+      // ),
+
+      // GoRoute(
+      //     path: '/anonymous',
+      //     parentNavigatorKey: _rootNavigatorKey,
+      //     redirect: (context, state) async {
+      //       print(
+      //           '''im home, ocome over babe. im alone. no i cant. but my parents arent home.
+      //               host: ${state.uri.host}
+      //                path: ${state.uri.path}
+      //                pathSegments: ${state.uri.pathSegments}
+      //                scheme: ${state.uri.scheme}
+      //                userInfo: ${state.uri.userInfo}
+      //                port: ${state.uri.port}
+      //                query: ${state.uri.query}
+      //                queryParameters[code]: ${state.uri.queryParameters['code']}''');
+      //       final magicLink = state.uri.queryParameters['code'];
+
+      //       if (state.uri.queryParameters.containsKey("session_state")) {
+      //         bool isConnected = await bloc.checkConnectivity();
+      //         if (isConnected) {
+      //           await bloc.backend.initialize();
+      //           if (!bloc.backend.isAuthenticated) {
+      //             // await CarpAuthService().authenticateWithMagicLink(state.uri);
+      //             // print('Authenticated with magic link');
+      //             return InvitationListPage.route;
+      //           }
+      //         } else {
+      //           showDialog<bool>(
+      //             context: context,
+      //             builder: (context) => PopScope(
+      //               onPopInvokedWithResult: (didPop, result) async {
+      //                 WidgetsBinding.instance.addPostFrameCallback((_) async {
+      //                   if (didPop && result == true) {
+      //                     Navigator.of(context).pop();
+      //                   }
+      //                 });
+      //               },
+      //               child: EnableInternetConnectionDialog(),
+      //             ),
+      //           );
+      //         }
+      //       }
+      //     }),
+      GoRoute(
+        path: '/anonymous',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) {
+          final queryParams = state.extra as Map<String, String>?;
+          final code = queryParams?['code'];
+          final sessionState = queryParams?['session_state'];
+          print('''query params $queryParams
+            code: $code 
+            sessionState: $sessionState
+            ''');
+
+          // Trigger async authentication after first frame
+          WidgetsBinding.instance.addPostFrameCallback((_) async {
+            bool isConnected = await bloc.checkConnectivity();
+            if (isConnected) {
+              print(
+                  '''im home, ocome over babe. im alone. no i cant. but my parents arent home.
+                      host: ${state.uri.host}
+                      path: ${state.uri.path}
+                      pathSegments: ${state.uri.pathSegments}
+                      scheme: ${state.uri.scheme}
+                      userInfo: ${state.uri.userInfo}
+                      port: ${state.uri.port}
+                      query: ${state.uri.query}
+                      queryParameters[code]: ${state.uri.queryParameters['code']}''');
+              // await bloc.backend.initialize();
+
+              // if (!bloc.backend.isAuthenticated && code != null) {
+              //   await CarpAuthService().authenticateWithMagicLink(state.uri);
+              // }
+
+              // Navigate to Invitations list page after successful auth
+              if (bloc.backend.isAuthenticated) {
+                print('Navigating to Invitations List Page');
+                context.go(InvitationListPage.route);
+              }
+            } else {
+              // Show no-internet dialog if needed
+              showDialog<bool>(
+                context: context,
+                builder: (context) => EnableInternetConnectionDialog(),
+              );
+            }
+          });
+
+          // Show a loading screen while async work runs
+          return Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+        },
+      ),
       GoRoute(
         path: StudyDetailsPage.route,
         parentNavigatorKey: _rootNavigatorKey,

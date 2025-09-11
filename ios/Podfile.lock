@@ -43,6 +43,8 @@ PODS:
   - flutter_sound_core (9.28.0)
   - flutter_timezone (0.0.1):
     - Flutter
+  - flutter_web_auth_2 (3.0.0):
+    - Flutter
   - health (12.2.1):
     - Flutter
   - just_audio (0.0.1):
@@ -128,6 +130,7 @@ DEPENDENCIES:
   - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
   - flutter_sound (from `.symlinks/plugins/flutter_sound/ios`)
   - flutter_timezone (from `.symlinks/plugins/flutter_timezone/ios`)
+  - flutter_web_auth_2 (from `.symlinks/plugins/flutter_web_auth_2/ios`)
   - health (from `.symlinks/plugins/health/ios`)
   - just_audio (from `.symlinks/plugins/just_audio/darwin`)
   - libphonenumber_plugin (from `.symlinks/plugins/libphonenumber_plugin/ios`)
@@ -198,6 +201,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_sound/ios"
   flutter_timezone:
     :path: ".symlinks/plugins/flutter_timezone/ios"
+  flutter_web_auth_2:
+    :path: ".symlinks/plugins/flutter_web_auth_2/ios"
   health:
     :path: ".symlinks/plugins/health/ios"
   just_audio:
@@ -267,6 +272,7 @@ SPEC CHECKSUMS:
   flutter_sound: b9236a5875299aaa4cef1690afd2f01d52a3f890
   flutter_sound_core: 427465f72d07ab8c3edbe8ffdde709ddacd3763c
   flutter_timezone: 7c838e17ffd4645d261e87037e5bebf6d38fe544
+  flutter_web_auth_2: 5c8d9dcd7848b5a9efb086d24e7a9adcae979c80
   health: fe206e65f13a9b88623605fbd8af8f029e23dc35
   just_audio: 4e391f57b79cad2b0674030a00453ca5ce817eed
   libphonenumber_plugin: d134f173b22bfa5ede50887071f087f309277f8c
