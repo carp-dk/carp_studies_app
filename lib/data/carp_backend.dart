@@ -103,6 +103,17 @@ class CarpBackend {
     }
   }
 
+  /// Authenticate using a web view.
+  Future<void> authenticateWithMagicLink(String code) async {
+    try {
+      user = await CarpAuthService().authenticateWithMagicLink(code);
+      info('$runtimeType - User authenticated - user: $user');
+    } catch (error) {
+      user = null;
+      warning('$runtimeType - Error authenticating user - $error');
+    }
+  }
+
   /// Refresh authentication token based on the refresh token.
   Future<CarpUser> refresh() async {
     user = await CarpAuthService().refresh();

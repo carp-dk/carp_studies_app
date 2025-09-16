@@ -274,28 +274,17 @@ class _QRViewExampleState extends State<QRViewExample> {
       if (code != null && Uri.tryParse(code)?.hasAbsolutePath == true) {
         final Uri uri = Uri.parse(code);
 
-        if (await canLaunchUrl(uri)) {
-          controller.pauseCamera();
-          FlutterWebAuth2.authenticate(
-            url: uri.toString(),
-            callbackUrlScheme: 'carp-studies',
-          ).then((result) {
-            print('Authentication result: $result');
-            final redirectUri = Uri.parse(result);
-            context.go(redirectUri.path, extra: redirectUri.queryParameters);
-            Navigator.of(context).pop(); // Close the QR scanner
-          }).catchError((error) {
-            print('Error during authentication: $error');
-            // Navigator.of(context).pop(); // Close the QR scanner
-            // Optionally, show an error message to the user
-          });
-          // await launchUrl(uri, mode: LaunchMode.inAppBrowserView);
-          // await controller.pauseCamera();
-          // Navigator.of(context).pop();
-          // Navigator.of(context).pop();
-        } else {
-          debugPrint('Could not launch $code');
-        }
+        controller.pauseCamera();
+        FlutterWebAuth2.authenticate(
+          url: uri.toString(),
+          callbackUrlScheme: 'carp-studies',
+        ).then((result) {
+          final redirectUri = Uri.parse(result);
+          context.go(redirectUri.path, extra: redirectUri.queryParameters);
+          Navigator.of(context).pop();
+        }).catchError((error) {
+          print('Error during authentication: $error');
+        });
       }
     });
   }

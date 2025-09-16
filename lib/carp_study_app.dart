@@ -50,43 +50,6 @@ class CarpStudyAppState extends State<CarpStudyApp> {
               path: homeRoute,
               parentNavigatorKey: _shellNavigatorKey,
               redirect: (context, state) async {
-                // print(
-                //     '''im home, ocome over babe. im alone. no i cant. but my parents arent home.
-                //     host: ${state.uri.host}
-                //      path: ${state.uri.path}
-                //      pathSegments: ${state.uri.pathSegments}
-                //      scheme: ${state.uri.scheme}
-                //      userInfo: ${state.uri.userInfo}
-                //      port: ${state.uri.port}
-                //      query: ${state.uri.query}
-                //      queryParameters[code]: ${state.uri.queryParameters['code']}''');
-
-                if (state.uri.queryParameters.containsKey("session_state")) {
-                  bool isConnected = await bloc.checkConnectivity();
-                  if (isConnected) {
-                    await bloc.backend.initialize();
-                    if (!bloc.backend.isAuthenticated) {
-                      await bloc.backend.authenticate();
-                    }
-                    // if (context.mounted) return CarpStudyAppState.homeRoute;
-                  } else {
-                    showDialog<bool>(
-                      context: context,
-                      builder: (context) => PopScope(
-                        onPopInvokedWithResult: (didPop, result) async {
-                          WidgetsBinding.instance
-                              .addPostFrameCallback((_) async {
-                            if (didPop && result == true) {
-                              Navigator.of(context).pop();
-                            }
-                          });
-                        },
-                        child: EnableInternetConnectionDialog(),
-                      ),
-                    );
-                  }
-                }
-
                 if (bloc.deploymentMode != DeploymentMode.local) {
                   if (!bloc.backend.isAuthenticated) {
                     return LoginPage.route;
@@ -94,7 +57,6 @@ class CarpStudyAppState extends State<CarpStudyApp> {
                     return InvitationListPage.route;
                   }
                 }
-
                 if (!bloc.hasInformedConsentBeenAccepted) {
                   return InformedConsentPage.route;
                 }
@@ -148,121 +110,33 @@ class CarpStudyAppState extends State<CarpStudyApp> {
           ),
         ],
       ),
-      // GoRoute(
-      //     path: '/anonymous',
-      //     parentNavigatorKey: _rootNavigatorKey,
-      //     redirect: (context, state) {
-      //       if (bloc.backend.isAuthenticated) {
-      //         print('im not a prin ${state.pathParameters}');
-      //         return StudyPage.route;
-      //       } else {
-      //         print(
-      //             'i am the printer the printer of worlds ${state.pathParameters}');
-      //         // await bloc.backend.authenticateAnonymous();
-      //         return bloc.study != null
-      //             ? InformedConsentPage.route
-      //             : (bloc.user == null ? LoginPage.route : null);
-      //       }
-      //     }),
-
-      // GoRoute(
-      //   path: '/anonymous',
-      //   parentNavigatorKey: _rootNavigatorKey,
-      //   redirect: (context, state) => InvitationListPage.route,
-      // ),
-
-      // GoRoute(
-      //     path: '/anonymous',
-      //     parentNavigatorKey: _rootNavigatorKey,
-      //     redirect: (context, state) async {
-      //       print(
-      //           '''im home, ocome over babe. im alone. no i cant. but my parents arent home.
-      //               host: ${state.uri.host}
-      //                path: ${state.uri.path}
-      //                pathSegments: ${state.uri.pathSegments}
-      //                scheme: ${state.uri.scheme}
-      //                userInfo: ${state.uri.userInfo}
-      //                port: ${state.uri.port}
-      //                query: ${state.uri.query}
-      //                queryParameters[code]: ${state.uri.queryParameters['code']}''');
-      //       final magicLink = state.uri.queryParameters['code'];
-
-      //       if (state.uri.queryParameters.containsKey("session_state")) {
-      //         bool isConnected = await bloc.checkConnectivity();
-      //         if (isConnected) {
-      //           await bloc.backend.initialize();
-      //           if (!bloc.backend.isAuthenticated) {
-      //             // await CarpAuthService().authenticateWithMagicLink(state.uri);
-      //             // print('Authenticated with magic link');
-      //             return InvitationListPage.route;
-      //           }
-      //         } else {
-      //           showDialog<bool>(
-      //             context: context,
-      //             builder: (context) => PopScope(
-      //               onPopInvokedWithResult: (didPop, result) async {
-      //                 WidgetsBinding.instance.addPostFrameCallback((_) async {
-      //                   if (didPop && result == true) {
-      //                     Navigator.of(context).pop();
-      //                   }
-      //                 });
-      //               },
-      //               child: EnableInternetConnectionDialog(),
-      //             ),
-      //           );
-      //         }
-      //       }
-      //     }),
       GoRoute(
         path: '/anonymous',
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) {
+        redirect: (context, state) async {
           final queryParams = state.extra as Map<String, String>?;
           final code = queryParams?['code'];
-          final sessionState = queryParams?['session_state'];
-          print('''query params $queryParams
-            code: $code 
-            sessionState: $sessionState
-            ''');
 
-          // Trigger async authentication after first frame
-          WidgetsBinding.instance.addPostFrameCallback((_) async {
-            bool isConnected = await bloc.checkConnectivity();
-            if (isConnected) {
-              print(
-                  '''im home, ocome over babe. im alone. no i cant. but my parents arent home.
-                      host: ${state.uri.host}
-                      path: ${state.uri.path}
-                      pathSegments: ${state.uri.pathSegments}
-                      scheme: ${state.uri.scheme}
-                      userInfo: ${state.uri.userInfo}
-                      port: ${state.uri.port}
-                      query: ${state.uri.query}
-                      queryParameters[code]: ${state.uri.queryParameters['code']}''');
-              // await bloc.backend.initialize();
-
-              // if (!bloc.backend.isAuthenticated && code != null) {
-              //   await CarpAuthService().authenticateWithMagicLink(state.uri);
-              // }
-
-              // Navigate to Invitations list page after successful auth
-              if (bloc.backend.isAuthenticated) {
-                print('Navigating to Invitations List Page');
-                context.go(InvitationListPage.route);
-              }
-            } else {
-              // Show no-internet dialog if needed
-              showDialog<bool>(
-                context: context,
-                builder: (context) => EnableInternetConnectionDialog(),
-              );
+          bool isConnected = await bloc.checkConnectivity();
+          if (isConnected) {
+            if (!bloc.backend.isAuthenticated && code != null) {
+              await bloc.backend.initialize();
+              await bloc.backend.authenticateWithMagicLink(code);
             }
-          });
-
-          // Show a loading screen while async work runs
-          return Scaffold(
-            body: Center(child: CircularProgressIndicator()),
-          );
+            // Navigate to Invitations list page after successful auth
+            if (bloc.backend.isAuthenticated) {
+              return InvitationListPage.route;
+            } else {
+              return LoginPage.route;
+            }
+          } else {
+            // Show no-internet dialog if needed
+            showDialog<bool>(
+              context: context,
+              builder: (context) => EnableInternetConnectionDialog(),
+            );
+          }
+          return LoginPage.route;
         },
       ),
       GoRoute(
@@ -358,9 +232,7 @@ class CarpStudyAppState extends State<CarpStudyApp> {
       ],
       localeResolutionCallback: (locale, supportedLocales) {
         for (var supportedLocale in supportedLocales) {
-          if (supportedLocale.languageCode == locale?.languageCode
-              // && supportedLocale.countryCode == locale?.countryCode
-              ) {
+          if (supportedLocale.languageCode == locale?.languageCode) {
             Intl.defaultLocale = supportedLocale.languageCode;
             return supportedLocale;
           }
