@@ -205,25 +205,6 @@ class StudyPageState extends State<StudyPage> {
     );
   }
 
-  void _redirectToUpdateStore() async {
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    Uri url;
-    if (Platform.isAndroid) {
-      url = Uri.parse(
-          'https://play.google.com/store/apps/details?id=${packageInfo.packageName}');
-    } else if (Platform.isIOS) {
-      url = Uri.parse('https://apps.apple.com/app/id1569798025');
-    } else {
-      throw 'Unsupported platform';
-    }
-    var canLaunch = await canLaunchUrl(url);
-    if (canLaunch) {
-      await launchUrl(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
   Widget _studyStatusCard() {
     RPLocalizations locale = RPLocalizations.of(context)!;
     return FutureBuilder<StudyDeploymentStatus?>(
@@ -305,6 +286,7 @@ class StudyPageState extends State<StudyPage> {
                                 color: Theme.of(context)
                                     .extension<RPColors>()!
                                     .grey900,
+                                fontSize: 14,
                               ),
                             ),
                           ),
@@ -321,35 +303,70 @@ class StudyPageState extends State<StudyPage> {
     );
   }
 
-  String getStatusText(
-    RPLocalizations locale,
-    StudyDeploymentStatusTypes deploymentStatusType,
-    AsyncSnapshot<StudyDeploymentStatus?> snapshot,
-  ) {
-    if (deploymentStatusType == StudyDeploymentStatusTypes.DeployingDevices) {
-      return locale.translate('pages.about.status.deploying_devices.message') +
-          snapshot.data!.deviceStatusList.first
-              .remainingDevicesToRegisterBeforeDeployment!
-              .join(' | ');
-    } else {
-      return locale.translate(studyStatusText[deploymentStatusType]!);
-    }
+  Widget _anonymousCard() {
+    RPLocalizations locale = RPLocalizations.of(context)!;
+
+    return StudiesMaterial(
+      margin: const EdgeInsets.all(16.0),
+      backgroundColor: Theme.of(context).extension<RPColors>()!.grey50!,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0, vertical: 22.0),
+                child: Row(
+                  children: [
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 6.0, vertical: 4),
+                          child: CircleAvatar(
+                            radius: 18,
+                            backgroundColor: CACHET.ANONYMOUS,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                          child: Text(
+                            locale.translate('pages.about.anonymous.anonymous'),
+                            maxLines: 2,
+                            style: aboutCardSubtitleStyle.copyWith(
+                                color: CACHET.ANONYMOUS),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 16.0),
+                        child: Text(
+                          locale.translate('pages.about.anonymous.message'),
+                          style: aboutCardSubtitleStyle.copyWith(
+                            color: Theme.of(context)
+                                .extension<RPColors>()!
+                                .grey900,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
-
-  static Map<StudyDeploymentStatusTypes, Color> studyStatusColors = {
-    StudyDeploymentStatusTypes.Invited: CACHET.DEPLOYMENT_INVITED,
-    StudyDeploymentStatusTypes.DeployingDevices: CACHET.DEPLOYMENT_DEPLOYING,
-    StudyDeploymentStatusTypes.Running: CACHET.DEPLOYMENT_RUNNING,
-    StudyDeploymentStatusTypes.Stopped: CACHET.DEPLOYMENT_STOPPED,
-  };
-
-  static Map<StudyDeploymentStatusTypes, String> studyStatusText = {
-    StudyDeploymentStatusTypes.Invited: 'pages.about.status.invited.message',
-    StudyDeploymentStatusTypes.DeployingDevices:
-        'pages.about.status.deploying_devices.message',
-    StudyDeploymentStatusTypes.Running: 'pages.about.status.running.message',
-    StudyDeploymentStatusTypes.Stopped: 'pages.about.status.stopped.message',
-  };
 
   Widget _buildAnnouncementsTitle(BuildContext context) {
     RPLocalizations locale = RPLocalizations.of(context)!;
@@ -484,6 +501,55 @@ class StudyPageState extends State<StudyPage> {
       ),
     );
   }
+
+  void _redirectToUpdateStore() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    Uri url;
+    if (Platform.isAndroid) {
+      url = Uri.parse(
+          'https://play.google.com/store/apps/details?id=${packageInfo.packageName}');
+    } else if (Platform.isIOS) {
+      url = Uri.parse('https://apps.apple.com/app/id1569798025');
+    } else {
+      throw 'Unsupported platform';
+    }
+    var canLaunch = await canLaunchUrl(url);
+    if (canLaunch) {
+      await launchUrl(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  String getStatusText(
+    RPLocalizations locale,
+    StudyDeploymentStatusTypes deploymentStatusType,
+    AsyncSnapshot<StudyDeploymentStatus?> snapshot,
+  ) {
+    if (deploymentStatusType == StudyDeploymentStatusTypes.DeployingDevices) {
+      return locale.translate('pages.about.status.deploying_devices.message') +
+          snapshot.data!.deviceStatusList.first
+              .remainingDevicesToRegisterBeforeDeployment!
+              .join(' | ');
+    } else {
+      return locale.translate(studyStatusText[deploymentStatusType]!);
+    }
+  }
+
+  static Map<StudyDeploymentStatusTypes, Color> studyStatusColors = {
+    StudyDeploymentStatusTypes.Invited: CACHET.DEPLOYMENT_INVITED,
+    StudyDeploymentStatusTypes.DeployingDevices: CACHET.DEPLOYMENT_DEPLOYING,
+    StudyDeploymentStatusTypes.Running: CACHET.DEPLOYMENT_RUNNING,
+    StudyDeploymentStatusTypes.Stopped: CACHET.DEPLOYMENT_STOPPED,
+  };
+
+  static Map<StudyDeploymentStatusTypes, String> studyStatusText = {
+    StudyDeploymentStatusTypes.Invited: 'pages.about.status.invited.message',
+    StudyDeploymentStatusTypes.DeployingDevices:
+        'pages.about.status.deploying_devices.message',
+    StudyDeploymentStatusTypes.Running: 'pages.about.status.running.message',
+    StudyDeploymentStatusTypes.Stopped: 'pages.about.status.stopped.message',
+  };
 }
 
 extension CopyWithAdditional on DateTime {

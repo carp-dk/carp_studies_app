@@ -117,6 +117,8 @@
     "pages.about.status.deploying_devices.message": "Følgende enhed(er) skal stadig registreres, før denne undersøgelse kan starte: ",
     "pages.about.status.running.message": "Undersøgelsen kører i øjeblikket og indsamler data fra denne enhed.",
     "pages.about.status.stopped.message": "Denne undersøgelse er blevet afbrudt og indsamler ikke længere data.",
+    "pages.about.anonymous.anonymous": "Anonym",
+    "pages.about.anonymous.message": "Din deltagelse i denne undersøgelse er anonym. Der vil ikke blive indsamlet nogen personlige eller identificerbare oplysninger.",
     "pages.about.message.read_more": "Tryk for at læse mere",
     "pages.about.study.website": "Hjemmeside",
     "pages.about.study.privacy": "Fortrolighedspolitik",

@@ -13,6 +13,8 @@ class CACHET {
   static const Color DEPLOYMENT_RUNNING = Color(0xff67CE67);
   static const Color DEPLOYMENT_STOPPED = Color(0xfdf848484);
   static const Color DEPLOYMENT_INVITED = Color(0xffDF7801);
+  
+  static const Color ANONYMOUS = Color(0xffB25FEA);
 
   static const Color RED = Color.fromRGBO(213, 11, 51, 1.0);
   static const Color WHITE = Color.fromRGBO(255, 255, 255, 1.0);
