@@ -28,6 +28,7 @@ class StudyPageState extends State<StudyPage> {
               child: StreamBuilder<int>(
                 stream: widget.model.messageStream,
                 builder: (context, AsyncSnapshot<int> snapshot) {
+                  final cards = _buildCards(context);
                   return RefreshIndicator(
                     onRefresh: () async {
                       await bloc.refreshMessages();
@@ -39,34 +40,8 @@ class StudyPageState extends State<StudyPage> {
                           widget.model.studyDeploymentId);
                     },
                     child: ListView.builder(
-                      // This is +4 bc the first two cards are the study card and the study status card
-                      itemCount: bloc.messages.length + 4,
-                      itemBuilder: (context, index) {
-                        if (index == 0) {
-                          return _hasUpdateCard();
-                        }
-                        if (index == 1) {
-                          return _studyCard(
-                            context,
-                            widget.model.studyDescriptionMessage,
-                            onTap: () {
-                              context.push(StudyDetailsPage.route);
-                            },
-                          );
-                        }
-                        if (index == 2) {
-                          return _studyStatusCard();
-                        }
-                        if (index == 3 && bloc.messages.isNotEmpty) {
-                          return _buildAnnouncementsTitle(context);
-                        }
-                        if (index == 4) {
-                          // This is -4 bc the first two cards are the study card and the study status card and we don't want to show them in the list
-                          return _announcementCard(
-                              context, bloc.messages[index - 4]);
-                        }
-                        return Container();
-                      },
+                      itemCount: cards.length,
+                      itemBuilder: (context, index) => cards[index],
                     ),
                   );
                 },
@@ -76,6 +51,27 @@ class StudyPageState extends State<StudyPage> {
         ),
       ),
     );
+  }
+
+  List<Widget> _buildCards(BuildContext context) {
+    final items = <Widget>[];
+    final updateCard = _hasUpdateCard();
+    items.add(updateCard);
+    items.add(_studyCard(
+      context,
+      widget.model.studyDescriptionMessage,
+      onTap: () {
+        context.push(StudyDetailsPage.route);
+      },
+    ));
+    items.add(_studyStatusCard());
+    if (bloc.messages.isNotEmpty) {
+      items.add(_buildAnnouncementsTitle(context));
+      items.addAll(bloc.messages.map((message) {
+        return _announcementCard(context, message);
+      }).toList());
+    }
+    return items;
   }
 
   Widget _hasUpdateCard() {
