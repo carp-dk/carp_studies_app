@@ -133,15 +133,16 @@ part 'ui/widgets/logout_message.dart';
 part 'ui/widgets/dialog_title.dart';
 part 'ui/widgets/location_usage_dialog.dart';
 
-part 'ui/cards/steps_card.dart';
-part 'ui/cards/heart_rate_card.dart';
-part 'ui/cards/mobility_card.dart';
-part 'ui/cards/distance_card.dart';
-part 'ui/cards/survey_card.dart';
-part 'ui/cards/media_card.dart';
-part 'ui/cards/scoreboard_card.dart';
-part 'ui/cards/study_progress_card.dart';
 part 'ui/cards/activity_card.dart';
+part 'ui/cards/anonymous_card.dart';
+part 'ui/cards/distance_card.dart';
+part 'ui/cards/heart_rate_card.dart';
+part 'ui/cards/media_card.dart';
+part 'ui/cards/mobility_card.dart';
+part 'ui/cards/scoreboard_card.dart';
+part 'ui/cards/steps_card.dart';
+part 'ui/cards/study_progress_card.dart';
+part 'ui/cards/survey_card.dart';
 
 part 'main.g.dart';
 

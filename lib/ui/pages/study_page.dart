@@ -65,6 +65,9 @@ class StudyPageState extends State<StudyPage> {
       },
     ));
     items.add(_studyStatusCard());
+    if (LocalSettings().isAnonymous) {
+      items.add(AnonymousCard());
+    }
     if (bloc.messages.isNotEmpty) {
       items.add(_buildAnnouncementsTitle(context));
       items.addAll(bloc.messages.map((message) {
@@ -300,71 +303,6 @@ class StudyPageState extends State<StudyPage> {
           ),
         );
       },
-    );
-  }
-
-  Widget _anonymousCard() {
-    RPLocalizations locale = RPLocalizations.of(context)!;
-
-    return StudiesMaterial(
-      margin: const EdgeInsets.all(16.0),
-      backgroundColor: Theme.of(context).extension<RPColors>()!.grey50!,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16.0),
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0, vertical: 22.0),
-                child: Row(
-                  children: [
-                    Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 6.0, vertical: 4),
-                          child: CircleAvatar(
-                            radius: 18,
-                            backgroundColor: CACHET.ANONYMOUS,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                          child: Text(
-                            locale.translate('pages.about.anonymous.anonymous'),
-                            maxLines: 2,
-                            style: aboutCardSubtitleStyle.copyWith(
-                                color: CACHET.ANONYMOUS),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 16.0),
-                        child: Text(
-                          locale.translate('pages.about.anonymous.message'),
-                          style: aboutCardSubtitleStyle.copyWith(
-                            color: Theme.of(context)
-                                .extension<RPColors>()!
-                                .grey900,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 

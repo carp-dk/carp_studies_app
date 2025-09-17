@@ -22,6 +22,8 @@ class LocalSettings {
   static const String participantKey = 'participant';
   static const String studyKey = 'study';
 
+  bool isAnonymous = false;
+
   CarpUser? _user;
   Participant? _participant;
   SmartphoneStudy? _study;

@@ -96,6 +96,7 @@ class CarpBackend {
   Future<void> authenticate() async {
     try {
       user = await CarpAuthService().authenticate();
+      LocalSettings().isAnonymous = false;
       info('$runtimeType - User authenticated - user: $user');
     } catch (error) {
       user = null;
@@ -107,6 +108,7 @@ class CarpBackend {
   Future<void> authenticateWithMagicLink(String code) async {
     try {
       user = await CarpAuthService().authenticateWithMagicLink(code);
+      LocalSettings().isAnonymous = true;
       info('$runtimeType - User authenticated - user: $user');
     } catch (error) {
       user = null;
