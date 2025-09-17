@@ -1,5 +1,7 @@
 ## 4.0.1
 
+- Minor improvements
+
 ## 4.0.0
 
 - Total redesign of the app
