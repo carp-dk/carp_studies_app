@@ -227,6 +227,29 @@ class _BluetoothConnectionPageState extends State<BluetoothConnectionPage> {
           isConnecting = true;
         });
 
+        FlutterBluePlus.stopScan();
+        widget.device.connectToDevice(selectedDevice!);
+        widget.device.statusEvents.listen((state) {
+          if (state == DeviceStatus.connected) {
+            _connectionTimeoutTimer?.cancel();
+            if (mounted) {
+              setState(() {
+                currentStep = CurrentStep.done;
+                isConnecting = false;
+              });
+            }
+          } else if (state == DeviceStatus.disconnected) {
+            _connectionTimeoutTimer?.cancel();
+            if (mounted) {
+              setState(() {
+                currentStep = CurrentStep.scan;
+                isConnecting = false;
+              });
+              FlutterBluePlus.startScan();
+            }
+          }
+        });
+
         // Start 7-second timeout
         _connectionTimeoutTimer = Timer(const Duration(seconds: 7), () {
           if (isConnecting && mounted) {
@@ -253,32 +276,6 @@ class _BluetoothConnectionPageState extends State<BluetoothConnectionPage> {
               },
             );
             widget.device.status = DeviceStatus.disconnected;
-            print("Connection timeout after 10 seconds");
-          }
-        });
-
-        FlutterBluePlus.stopScan();
-        widget.device.connectToDevice(selectedDevice!);
-        widget.device.statusEvents.listen((state) {
-          if (state == DeviceStatus.connected) {
-            _connectionTimeoutTimer?.cancel();
-            if (mounted) {
-              setState(() {
-                currentStep = CurrentStep.done;
-                isConnecting = false;
-              });
-            }
-            print("Device is connected");
-          } else if (state == DeviceStatus.disconnected) {
-            _connectionTimeoutTimer?.cancel();
-            if (mounted) {
-              setState(() {
-                currentStep = CurrentStep.scan;
-                isConnecting = false;
-              });
-              FlutterBluePlus.startScan();
-            }
-            print("Device is not connected properly");
           }
         });
       }
