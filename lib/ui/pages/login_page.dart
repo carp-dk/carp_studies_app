@@ -150,11 +150,6 @@ class _QRViewExampleState extends State<QRViewExample> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  // if (result != null)
-                  //   Text(
-                  //       'Barcode Type: ${(result!.format)}   Data: ${result!.code}')
-                  // else
-                  //   const Text('Scan a code'),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -168,20 +163,6 @@ class _QRViewExampleState extends State<QRViewExample> {
                           child: const Text('Close',
                               style: TextStyle(fontSize: 20)),
                         ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.all(8),
-                        child: ElevatedButton(
-                            onPressed: () async {
-                              await controller?.toggleFlash();
-                              setState(() {});
-                            },
-                            child: FutureBuilder(
-                              future: controller?.getFlashStatus(),
-                              builder: (context, snapshot) {
-                                return Text('Flash: ${snapshot.data}');
-                              },
-                            )),
                       ),
                       Container(
                         margin: const EdgeInsets.all(8),
@@ -201,32 +182,6 @@ class _QRViewExampleState extends State<QRViewExample> {
                                 }
                               },
                             )),
-                      )
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.all(8),
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            await controller?.pauseCamera();
-                          },
-                          child: const Text('pause',
-                              style: TextStyle(fontSize: 20)),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.all(8),
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            await controller?.resumeCamera();
-                          },
-                          child: const Text('resume',
-                              style: TextStyle(fontSize: 20)),
-                        ),
                       )
                     ],
                   ),
@@ -265,25 +220,19 @@ class _QRViewExampleState extends State<QRViewExample> {
       this.controller = controller;
     });
     controller.scannedDataStream.listen((scanData) async {
+      await controller.pauseCamera();
+      if (result != null) return;
       setState(() {
         result = scanData;
       });
 
-      final code = scanData.code;
+      final qrcode = scanData.code;
 
-      if (code != null && Uri.tryParse(code)?.hasAbsolutePath == true) {
-        final Uri uri = Uri.parse(code);
-
-        controller.pauseCamera();
-        FlutterWebAuth2.authenticate(
-          url: uri.toString(),
-          callbackUrlScheme: 'carp-studies',
-        ).then((result) {
-          final redirectUri = Uri.parse(result);
-          context.go(redirectUri.path, extra: redirectUri.queryParameters);
+      if (qrcode != null && Uri.tryParse(qrcode)?.hasAbsolutePath == true) {
+        await bloc.backend.authenticateWithMagicLink(qrcode).then((_) {
+          print("after authenticae");
+          context.go('/');
           Navigator.of(context).pop();
-        }).catchError((error) {
-          print('Error during authentication: $error');
         });
       }
     });

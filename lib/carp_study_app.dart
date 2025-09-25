@@ -111,35 +111,6 @@ class CarpStudyAppState extends State<CarpStudyApp> {
         ],
       ),
       GoRoute(
-        path: '/anonymous',
-        parentNavigatorKey: _rootNavigatorKey,
-        redirect: (context, state) async {
-          final queryParams = state.extra as Map<String, String>?;
-          final code = queryParams?['code'];
-
-          bool isConnected = await bloc.checkConnectivity();
-          if (isConnected) {
-            if (!bloc.backend.isAuthenticated && code != null) {
-              await bloc.backend.initialize();
-              await bloc.backend.authenticateWithMagicLink(code);
-            }
-            // Navigate to Invitations list page after successful auth
-            if (bloc.backend.isAuthenticated) {
-              return InvitationListPage.route;
-            } else {
-              return LoginPage.route;
-            }
-          } else {
-            // Show no-internet dialog if needed
-            showDialog<bool>(
-              context: context,
-              builder: (context) => EnableInternetConnectionDialog(),
-            );
-          }
-          return LoginPage.route;
-        },
-      ),
-      GoRoute(
         path: StudyDetailsPage.route,
         parentNavigatorKey: _rootNavigatorKey,
         builder: (context, state) => StudyDetailsPage(

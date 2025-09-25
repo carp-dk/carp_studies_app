@@ -57,6 +57,7 @@ class CarpBackend {
         authURL: uri,
         clientId: 'studies-app',
         redirectURI: Uri.parse('carp-studies-auth://auth'),
+        anonymousRedirectURI: Uri.parse('carp-studies:/anonymous'),
         // For authentication at CAWS the path is '/auth/realms/Carp'
         discoveryURL: uri.replace(pathSegments: [
           'auth',
@@ -105,14 +106,15 @@ class CarpBackend {
   }
 
   /// Authenticate using a web view.
-  Future<void> authenticateWithMagicLink(String code) async {
+  Future<void> authenticateWithMagicLink(String uri) async {
     try {
-      user = await CarpAuthService().authenticateWithMagicLink(code);
+      await initialize();
+      user = await CarpAuthService().authenticateWithMagicLink(uri);
       LocalSettings().isAnonymous = true;
-      info('$runtimeType - User authenticated - user: $user');
+      info('$runtimeType - ANNONYMOUS User authenticated - user: $user');
     } catch (error) {
       user = null;
-      warning('$runtimeType - Error authenticating user - $error');
+      warning('$runtimeType - ANNONYMOUS Error authenticating user - $error');
     }
   }
 
