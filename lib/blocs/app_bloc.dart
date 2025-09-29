@@ -322,6 +322,13 @@ class StudyAppBLoC extends ChangeNotifier {
     _state = StudyAppState.configured;
   }
 
+  Future<List<ParticipantData>> getParticipantDataListFromDeployment() async {
+    if (deployment == null) return [];
+
+    return await CarpParticipationService().getParticipantDataList(
+        [deployment!.studyDeploymentId]);
+  }
+
   /// Set the participant data for this study.
   void setParticipantData(
     String studyDeploymentId,

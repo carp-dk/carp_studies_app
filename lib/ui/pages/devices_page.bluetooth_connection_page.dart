@@ -31,11 +31,10 @@ class _BluetoothConnectionPageState extends State<BluetoothConnectionPage> {
   @override
   void dispose() {
     FlutterBluePlus.stopScan();
-    AppPreferences.setHasSeenBluetoothConnectionInstructions();
+    LocalSettings().hasSeenBluetoothConnectionInstructions = true;
     super.dispose();
   }
 
-  // CurrentStep currentStep = CurrentStep.scan;
   BluetoothDevice? selectedDevice;
   int selected = 40;
 

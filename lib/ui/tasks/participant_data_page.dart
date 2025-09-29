@@ -5,7 +5,6 @@ enum ParticipantStep {
   address,
   diagnosis,
   fullName,
-  // informedConsent,
   phoneNumber,
   socialSecurityNumber,
   review
@@ -625,24 +624,22 @@ class ParticipantDataPageState extends State<ParticipantDataPage> {
   InputDecoration _buildInputDecoration(
       RPLocalizations locale, StepField stepField, bool isThicc) {
     return InputDecoration(
-      labelText: locale.translate(stepField.title),
-      floatingLabelBehavior: FloatingLabelBehavior.always,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-        borderSide: BorderSide(color: Colors.blue),
-      ),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-        borderSide: BorderSide(color: Colors.grey.shade300),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-        borderSide: BorderSide(color: Colors.blue, width: 2),
-      ),
-      contentPadding: isThicc
-          ? const EdgeInsets.symmetric(horizontal: 16, vertical: 70)
-          : const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-    );
+        labelText: locale.translate(stepField.title),
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(color: Colors.blue),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(color: Colors.grey.shade300),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(color: Colors.blue, width: 2),
+        ),
+        contentPadding:
+            EdgeInsets.symmetric(horizontal: 16, vertical: isThicc ? 70 : 12));
   }
 
   /// Builds the action buttons at the bottom of the page.
@@ -777,7 +774,7 @@ class ParticipantDataPageState extends State<ParticipantDataPage> {
       participantData,
       bloc.study!.participantRoleName,
     );
-    AppPreferences.setHasFilledExpectedParticipantData();
+    LocalSettings().hasSeenConnectionInstructions = true;
   }
 
   Future<void> _showCancelConfirmationDialog() {
