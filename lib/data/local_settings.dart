@@ -22,7 +22,6 @@ class LocalSettings {
   static const String participantKey = 'participant';
   static const String studyKey = 'study';
 
-  bool isAnonymous = false;
 
   CarpUser? _user;
   Participant? _participant;
@@ -108,6 +107,10 @@ class LocalSettings {
           json.encode(_$SmartphoneStudyToJson(study!)),
         );
   }
+
+  bool get isAnonymous => Settings().preferences!.getBool('isAnonymous') ?? false;
+  set isAnonymous(bool value) =>
+      Settings().preferences!.setBool('isAnonymous', value);
 
   /// The study deployment id for the currently running deployment.
   String? get studyDeploymentId => _study?.studyDeploymentId;
