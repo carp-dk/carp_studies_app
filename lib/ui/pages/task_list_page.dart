@@ -153,7 +153,8 @@ class TaskListPageState extends State<TaskListPage>
                             ),
                           ),
                           FutureBuilder<bool>(
-                            future: bloc.getParticipantDataListFromDeployment()
+                            future: bloc
+                                .getParticipantDataListFromDeployment()
                                 .then((value) => value.isNotEmpty),
                             builder: (context, snapshot) {
                               if (snapshot.hasData && snapshot.data == true) {
