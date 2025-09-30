@@ -95,10 +95,10 @@ Used to define enums
 2.
 3. Update build number
 
-## Generate study ()
+## Generate study
 
 [More info here](https://pub.dev/packages/carp_study_generator)
-[Study configuration repo] (<https://github.com/cph-cachet/carp_study_app_configurations>)
+[Study configuration repo](https://github.com/carp-dk/carp_study_app_configurations)
 
 1. Create `carpspec.yaml` & **do not add to version control**
 2. In server, point to the right uri:

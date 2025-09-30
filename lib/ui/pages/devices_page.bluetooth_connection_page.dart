@@ -34,11 +34,10 @@ class _BluetoothConnectionPageState extends State<BluetoothConnectionPage> {
   void dispose() {
     FlutterBluePlus.stopScan();
     _connectionTimeoutTimer?.cancel();
-    AppPreferences.setHasSeenBluetoothConnectionInstructions();
+    LocalSettings().hasSeenBluetoothConnectionInstructions = true;
     super.dispose();
   }
 
-  // CurrentStep currentStep = CurrentStep.scan;
   BluetoothDevice? selectedDevice;
   int selected = 40;
 

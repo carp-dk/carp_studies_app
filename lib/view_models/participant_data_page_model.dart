@@ -19,8 +19,6 @@ class ParticipantDataPageViewModel extends ViewModel {
   late TextEditingController _middleNameController;
   late TextEditingController _lastNameController;
 
-  late TextEditingController _informedConsentDescriptionController;
-
   late TextEditingController _phoneNumberCodeController;
   late TextEditingController _phoneNumberController;
 
@@ -52,7 +50,6 @@ class ParticipantDataPageViewModel extends ViewModel {
   late StepField firstNameField;
   late StepField middleNameField;
   late StepField lastNameField;
-  late StepField informedConsentDescriptionField;
   late StepField phoneNumberField;
   late StepField ssnField;
 
