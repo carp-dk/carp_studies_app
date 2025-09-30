@@ -27,6 +27,8 @@ class LocalSettings {
   Participant? _participant;
   SmartphoneStudy? _study;
 
+  bool hasSeenBluetoothConnectionInstructions = false;
+
   static final LocalSettings _instance = LocalSettings._();
   factory LocalSettings() => _instance;
   LocalSettings._() : super();
@@ -105,6 +107,17 @@ class LocalSettings {
     Settings().preferences?.setString(
           studyKey,
           json.encode(_$SmartphoneStudyToJson(study!)),
+        );
+  }
+
+  bool get hasSeenConnectionInstructions =>
+      hasSeenBluetoothConnectionInstructions;
+
+  set hasSeenConnectionInstructions(bool seen) {
+    hasSeenBluetoothConnectionInstructions = seen;
+    Settings().preferences?.setBool(
+          'hasSeenBluetoothConnectionInstructions',
+          seen,
         );
   }
 

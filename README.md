@@ -1,10 +1,10 @@
 # CARP Studies App
 
-The CARP Studies App is designed to run generic studies using the [CARP Mobile Sensing](https://pub.dev/packages/carp_mobile_sensing) (CAMS) Framework, which is part of the [Copenhagen Research Platform](https://carp.cachet.dk) (CARP) from the [Department of Health Technology](https://www.healthtech.dtu.dk/) at the Technical University of Denmark.
+The CARP Studies App is designed to run generic studies using the [CARP Mobile Sensing](https://pub.dev/packages/carp_mobile_sensing) (CAMS) Framework, which is part of the [Copenhagen Research Platform](https://carp.dk) (CARP) from the [Department of Health Technology](https://www.healthtech.dtu.dk/) at the Technical University of Denmark.
 
-It follows a basic Business Logic Component (BLoC) combined with a Model-View-View-Model architecture, as described in the [CARP Mobile Sensing Demo App](https://github.com/cph-cachet/carp.sensing-flutter/tree/main/apps/carp_mobile_sensing_app).
+It follows a basic Business Logic Component (BLoC) combined with a Model-View-View-Model architecture, as described in the [CARP Mobile Sensing Demo App](https://github.com/carp-dk/carp.sensing-flutter/tree/main/apps/carp_mobile_sensing_app).
 
-Read more about the [CARP Studies app](https://carp.cachet.dk/carp-studies-app/) on the CARP Homepage.
+Read more about the [CARP Studies app](https://carp.dk/carp-studies-app/) on the CARP Homepage.
 
 ## Deployment Mode
 
@@ -20,7 +20,7 @@ In VSCode, you can add a `launch.json` file to specify different deployment mode
 
 ### Local Deployment
 
-Local mode is intended for designing and debugging a study protocol, informed consent, translations, and messages. In local deployment mode, the app loads its configuration from JSON files stored in the `assets/carp/...` folder structure. This folder structure follows the default structure of the [CARP Study Generator Utility Package](https://github.com/cph-cachet/carp.sensing-flutter/tree/main/utilities/carp_study_generator), i.e., that
+Local mode is intended for designing and debugging a study protocol, informed consent, translations, and messages. In local deployment mode, the app loads its configuration from JSON files stored in the `assets/carp/...` folder structure. This folder structure follows the default structure of the [CARP Study Generator Utility Package](https://github.com/carp-dk/carp.sensing-flutter/tree/main/utilities/carp_study_generator), i.e., that
 
 * `protocol.json` and `consent.json` files go to `carp/resources`
 * language files go to `carp/lang`

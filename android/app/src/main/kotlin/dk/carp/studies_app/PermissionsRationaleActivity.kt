@@ -9,7 +9,7 @@ class PermissionsRationaleActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val privacyPolicyUrl = "https://carp.cachet.dk/privacy-policy-app"
+        val privacyPolicyUrl = "https://carp.dk/privacy-policy-app"
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(privacyPolicyUrl))
         startActivity(intent)
 
