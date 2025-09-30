@@ -180,6 +180,8 @@
   "pages.devices.connection.step.confirm.title": "Forbundet til",
   "pages.devices.connection.step.confirm.1": "",
   "pages.devices.connection.step.confirm.2": "enheden er nu forbundet til telefonen og vil blive anvendt til data opsamling i studiet.",
+  "pages.devices.connection.connection_failed.title": "Forbindelse mislykkedes",
+  "pages.devices.connection.connection_failed.message": "Kunne ikke oprette forbindelse til den valgte enhed. Prøv venligst igen.",
   "widgets.logoutmessage.title": "Log ud",
   "widgets.logoutmessage.message": "Operativsystemet vil åbne en browser for at logge dig ud. Er dette okay?",
   "pages.login.login": "Log ind",
