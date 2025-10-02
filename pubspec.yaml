@@ -28,7 +28,6 @@ dependencies:
   research_package: ^2.0.0
   cognition_package: ^1.6.1
 
-  flutter_launcher_icons: ^0.14.0
   url_launcher: ^6.1.5
   timeago: ^3.1.0
   expandable: ^5.0.1
@@ -118,11 +117,7 @@ dev_dependencies:
 #  2. add the 'flutter_icons:' section below
 #  3. run 'flutter pub get'
 #  3. run 'dart run flutter_launcher_icons:main'
-flutter_launcher_icons:
-  android: true
-  ios: true
-  remove_alpha_ios: true
-  image_path: "assets/logo.png"
+
 
 flutter:
   uses-material-design: true
