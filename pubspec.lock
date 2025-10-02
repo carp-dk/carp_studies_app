@@ -213,18 +213,18 @@ packages:
     dependency: "direct main"
     description:
       name: camera_android_camerax
-      sha256: "0db8e7b161ec6cdb2219540eaa4cf599dc963929e5f8ded3b20b3acb52712fa4"
+      sha256: d04649fab70a5d586a7b26d5ac26f700656b6aab26a16bfd5a29302589b7a973
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.21+1"
+    version: "0.6.23"
   camera_avfoundation:
     dependency: transitive
     description:
       name: camera_avfoundation
-      sha256: a5a90297520e3b9841331161a7511626681153849c690c138e04a2b6d0af3026
+      sha256: "98bc06fccfaa8aef0af354f33e314de9c59eedf62bfe10935521607e768d8fef"
       url: "https://pub.dev"
     source: hosted
-    version: "0.9.21+3"
+    version: "0.9.21+4"
   camera_platform_interface:
     dependency: transitive
     description:
@@ -872,7 +872,7 @@ packages:
     source: hosted
     version: "4.1.1"
   flutter_web_auth_2:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: flutter_web_auth_2
       sha256: "3c14babeaa066c371f3a743f204dd0d348b7d42ffa6fae7a9847a521aff33696"
@@ -1116,30 +1116,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.2"
-  libphonenumber_platform_interface:
-    dependency: transitive
-    description:
-      name: libphonenumber_platform_interface
-      sha256: f801f6c65523f56504b83f0890e6dad584ab3a7507dca65fec0eed640afea40f
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.4.2"
-  libphonenumber_plugin:
-    dependency: transitive
-    description:
-      name: libphonenumber_plugin
-      sha256: c615021d9816fbda2b2587881019ed595ecdf54d999652d7e4cce0e1f026368c
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.3.3"
-  libphonenumber_web:
-    dependency: transitive
-    description:
-      name: libphonenumber_web
-      sha256: "8186f420dbe97c3132283e52819daff1e55d60d6db46f7ea5ac42f42a28cc2ef"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.3.2"
   light:
     dependency: transitive
     description:
@@ -2005,10 +1981,10 @@ packages:
     dependency: transitive
     description:
       name: system_info2
-      sha256: "65206bbef475217008b5827374767550a5420ce70a04d2d7e94d1d2253f3efc9"
+      sha256: b937736ecfa63c45b10dde1ceb6bb30e5c0c340e14c441df024150679d65ac43
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.0"
+    version: "4.1.0"
   term_glyph:
     dependency: transitive
     description:
@@ -2213,10 +2189,10 @@ packages:
     dependency: transitive
     description:
       name: video_player_android
-      sha256: "59e5a457ddcc1688f39e9aef0efb62aa845cf0cbbac47e44ac9730dc079a2385"
+      sha256: "6cfe0b1e102522eda1e139b82bf00602181c5844fd2885340f595fb213d74842"
       url: "https://pub.dev"
     source: hosted
-    version: "2.8.13"
+    version: "2.8.14"
   video_player_avfoundation:
     dependency: transitive
     description:

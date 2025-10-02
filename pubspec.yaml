@@ -58,7 +58,6 @@ dependencies:
   intl_phone_number_input: ^0.7.4
   flutter_native_splash: ^2.4.6
   qr_code_scanner_plus: ^2.0.10+1
-  flutter_web_auth_2: ^4.1.0
 
 dependency_overrides:
   polar: 7.5.1

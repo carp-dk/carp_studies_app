@@ -34,10 +34,8 @@ import 'package:open_settings_plus/core/open_settings_plus.dart';
 import 'package:appcheck/appcheck.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:app_version_update/app_version_update.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart' as qr;
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
 
 // the CARP packages
 import 'package:carp_serializable/carp_serializable.dart';
