@@ -35,7 +35,6 @@ import 'package:appcheck/appcheck.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:app_version_update/app_version_update.dart';
 import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart' as qr;
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 // the CARP packages
 import 'package:carp_serializable/carp_serializable.dart';
