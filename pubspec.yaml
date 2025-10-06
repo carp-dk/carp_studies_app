@@ -22,7 +22,7 @@ dependencies:
   carp_health_package: ^3.2.0
   carp_movesense_package: ^1.7.2
 
-  # carp_webservices: ^3.7.0
+  carp_webservices: ^3.8.0
   carp_backend: ^1.9.2
 
   research_package: ^2.0.0
@@ -58,7 +58,7 @@ dependencies:
   qr_code_scanner_plus: ^2.0.10+1
 
 dependency_overrides:
-  polar: 7.5.1
+  # polar: 7.5.1
 
   # camera_android_camerax: 0.6.10+1
   # flutter_plugin_android_lifecycle: 2.0.24
@@ -92,8 +92,8 @@ dependency_overrides:
   #   path: ../carp/carp.sensing-flutter/packages/carp_health_package/
   # carp_movesense_package:
   #   path: ../carp/carp.sensing-flutter/packages/carp_movesense_package/
-  carp_webservices:
-    path: ../carp.sensing-flutter/backends/carp_webservices/
+  # carp_webservices:
+  #   path: ../carp.sensing-flutter/backends/carp_webservices/
   # carp_backend:
   #   path: ../carp/carp.sensing-flutter/backends/carp_backend/
   # research_package: 
