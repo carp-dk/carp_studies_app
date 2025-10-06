@@ -325,6 +325,9 @@ class StudyAppBLoC extends ChangeNotifier {
   Future<List<ParticipantData>> getParticipantDataListFromDeployment() async {
     if (deployment == null) return [];
 
+    // if running in local deployment mode, there is no backend to get data from
+    if (deploymentMode == DeploymentMode.local) return [];
+
     return await CarpParticipationService()
         .getParticipantDataList([deployment!.studyDeploymentId]);
   }

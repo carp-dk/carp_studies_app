@@ -111,10 +111,10 @@ class CarpBackend {
       await initialize();
       user = await CarpAuthService().authenticateWithMagicLink(uri);
       LocalSettings().isAnonymous = true;
-      info('$runtimeType - ANNONYMOUS User authenticated - user: $user');
+      info('$runtimeType - ANONYMOUS User authenticated - user: $user');
     } catch (error) {
       user = null;
-      warning('$runtimeType - ANNONYMOUS Error authenticating user - $error');
+      warning('$runtimeType - ANONYMOUS Error authenticating user - $error');
     }
   }
 
