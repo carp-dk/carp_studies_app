@@ -1,3 +1,7 @@
+## 4.1.0
+
+- Now supporting anonymous user authentication
+
 ## 4.0.1
 
 - Minor improvements
