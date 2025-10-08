@@ -1,5 +1,4 @@
 PODS:
-  - Alamofire (5.8.1)
   - AppAuth (2.0.0):
     - AppAuth/Core (= 2.0.0)
     - AppAuth/ExternalUserAgent (= 2.0.0)
@@ -79,16 +78,15 @@ PODS:
     - PhoneNumberKit/PhoneNumberKitCore
   - polar (0.0.1):
     - Flutter
-    - PolarBleSdk (~> 5.7.0)
-  - PolarBleSdk (5.7.0):
-    - Alamofire (~> 5.8.1)
-    - RxSwift (~> 6.5.0)
+    - PolarBleSdk (~> 6.1.0)
+  - PolarBleSdk (6.1.0):
+    - RxSwift (~> 6.8.0)
     - SwiftProtobuf (~> 1.0)
     - Zip (~> 2.1.2)
   - qr_code_scanner_plus (0.2.6):
     - Flutter
     - MTBBarcodeScanner
-  - RxSwift (6.5.0)
+  - RxSwift (6.8.0)
   - screen_state (1.0.0):
     - Flutter
   - sensors_plus (0.0.1):
@@ -149,7 +147,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - Alamofire
     - AppAuth
     - flutter_sound_core
     - MTBBarcodeScanner
@@ -241,7 +238,6 @@ CHECKOUT OPTIONS:
     :git: https://bitbucket.org/movesense/movesense-mobile-lib/
 
 SPEC CHECKSUMS:
-  Alamofire: 3ca42e259043ee0dc5c0cdd76c4bc568b8e42af7
   AppAuth: 1c1a8afa7e12f2ec3a294d9882dfa5ab7d3cb063
   appcheck: 3c94d0ffc94bd639938cac7427d5b13df2795404
   audio_session: 9bb7f6c970f21241b19f5a3658097ae459681ba0
@@ -275,10 +271,10 @@ SPEC CHECKSUMS:
   pedometer: 1c5eaab0c6bce8eb7651f7095553b5081c9d06ed
   permission_handler_apple: 4ed2196e43d0651e8ff7ca3483a069d469701f2d
   PhoneNumberKit: ec00ab8cef5342c1dc49fadb99d23fa7e66cf0ef
-  polar: bc78b0a6fce15cad0a88ad8eb831fa76f709df7b
-  PolarBleSdk: e3df6f62b6ed34701d2e1d74ebe24fd8245062ca
+  polar: 0374f6063ade7e2dd85d626f87cbe2393d3eda7c
+  PolarBleSdk: bfb57cf8350f0c53d441b8632ba6df363ce7c79f
   qr_code_scanner_plus: 7e087021bc69873140e0754750eb87d867bed755
-  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
+  RxSwift: 4e28be97cbcfeee614af26d83415febbf2bf6f45
   screen_state: 52d6e997d31bddba6417c60d9cdd22effd0320a7
   sensors_plus: 6a11ed0c2e1d0bd0b20b4029d3bad27d96e0c65b
   shared_preferences_foundation: 9e1978ff2562383bd5676f64ec4e9aa8fa06a6f7
