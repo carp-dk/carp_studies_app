@@ -22,7 +22,6 @@ class LocalSettings {
   static const String participantKey = 'participant';
   static const String studyKey = 'study';
 
-
   CarpUser? _user;
   Participant? _participant;
   SmartphoneStudy? _study;
@@ -121,7 +120,8 @@ class LocalSettings {
         );
   }
 
-  bool get isAnonymous => Settings().preferences!.getBool('isAnonymous') ?? false;
+  bool get isAnonymous =>
+      Settings().preferences!.getBool('isAnonymous') ?? false;
   set isAnonymous(bool value) =>
       Settings().preferences!.setBool('isAnonymous', value);
 
