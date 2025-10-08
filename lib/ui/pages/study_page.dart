@@ -28,6 +28,7 @@ class StudyPageState extends State<StudyPage> {
               child: StreamBuilder<int>(
                 stream: widget.model.messageStream,
                 builder: (context, AsyncSnapshot<int> snapshot) {
+                  final cards = _buildCards(context);
                   return RefreshIndicator(
                     onRefresh: () async {
                       await bloc.refreshMessages();
@@ -39,34 +40,8 @@ class StudyPageState extends State<StudyPage> {
                           widget.model.studyDeploymentId);
                     },
                     child: ListView.builder(
-                      // This is +4 bc the first two cards are the study card and the study status card
-                      itemCount: bloc.messages.length + 4,
-                      itemBuilder: (context, index) {
-                        if (index == 0) {
-                          return _hasUpdateCard();
-                        }
-                        if (index == 1) {
-                          return _studyCard(
-                            context,
-                            widget.model.studyDescriptionMessage,
-                            onTap: () {
-                              context.push(StudyDetailsPage.route);
-                            },
-                          );
-                        }
-                        if (index == 2) {
-                          return _studyStatusCard();
-                        }
-                        if (index == 3 && bloc.messages.isNotEmpty) {
-                          return _buildAnnouncementsTitle(context);
-                        }
-                        if (index >= 4) {
-                          // This is -4 bc the first two cards are the study card and the study status card and we don't want to show them in the list
-                          return _announcementCard(
-                              context, bloc.messages[index - 4]);
-                        }
-                        return Container();
-                      },
+                      itemCount: cards.length,
+                      itemBuilder: (context, index) => cards[index],
                     ),
                   );
                 },
@@ -76,6 +51,30 @@ class StudyPageState extends State<StudyPage> {
         ),
       ),
     );
+  }
+
+  List<Widget> _buildCards(BuildContext context) {
+    final items = <Widget>[];
+    final updateCard = _hasUpdateCard();
+    items.add(updateCard);
+    items.add(_studyCard(
+      context,
+      widget.model.studyDescriptionMessage,
+      onTap: () {
+        context.push(StudyDetailsPage.route);
+      },
+    ));
+    items.add(_studyStatusCard());
+    if (LocalSettings().isAnonymous) {
+      items.add(AnonymousCard());
+    }
+    if (bloc.messages.isNotEmpty) {
+      items.add(_buildAnnouncementsTitle(context));
+      items.addAll(bloc.messages.map((message) {
+        return _announcementCard(context, message);
+      }).toList());
+    }
+    return items;
   }
 
   Widget _hasUpdateCard() {
@@ -209,27 +208,9 @@ class StudyPageState extends State<StudyPage> {
     );
   }
 
-  void _redirectToUpdateStore() async {
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    Uri url;
-    if (Platform.isAndroid) {
-      url = Uri.parse(
-          'https://play.google.com/store/apps/details?id=${packageInfo.packageName}');
-    } else if (Platform.isIOS) {
-      url = Uri.parse('https://apps.apple.com/app/id1569798025');
-    } else {
-      throw 'Unsupported platform';
-    }
-    var canLaunch = await canLaunchUrl(url);
-    if (canLaunch) {
-      await launchUrl(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
   Widget _studyStatusCard() {
     RPLocalizations locale = RPLocalizations.of(context)!;
+
     return FutureBuilder<StudyDeploymentStatus?>(
       future: bloc.studyDeploymentStatus,
       builder: (context, snapshot) {
@@ -309,6 +290,7 @@ class StudyPageState extends State<StudyPage> {
                                 color: Theme.of(context)
                                     .extension<RPColors>()!
                                     .grey900,
+                                fontSize: 14,
                               ),
                             ),
                           ),
@@ -324,36 +306,6 @@ class StudyPageState extends State<StudyPage> {
       },
     );
   }
-
-  String getStatusText(
-    RPLocalizations locale,
-    StudyDeploymentStatusTypes deploymentStatusType,
-    AsyncSnapshot<StudyDeploymentStatus?> snapshot,
-  ) {
-    if (deploymentStatusType == StudyDeploymentStatusTypes.DeployingDevices) {
-      return locale.translate('pages.about.status.deploying_devices.message') +
-          snapshot.data!.deviceStatusList.first
-              .remainingDevicesToRegisterBeforeDeployment!
-              .join(' | ');
-    } else {
-      return locale.translate(studyStatusText[deploymentStatusType]!);
-    }
-  }
-
-  static Map<StudyDeploymentStatusTypes, Color> studyStatusColors = {
-    StudyDeploymentStatusTypes.Invited: CACHET.DEPLOYMENT_INVITED,
-    StudyDeploymentStatusTypes.DeployingDevices: CACHET.DEPLOYMENT_DEPLOYING,
-    StudyDeploymentStatusTypes.Running: CACHET.DEPLOYMENT_RUNNING,
-    StudyDeploymentStatusTypes.Stopped: CACHET.DEPLOYMENT_STOPPED,
-  };
-
-  static Map<StudyDeploymentStatusTypes, String> studyStatusText = {
-    StudyDeploymentStatusTypes.Invited: 'pages.about.status.invited.message',
-    StudyDeploymentStatusTypes.DeployingDevices:
-        'pages.about.status.deploying_devices.message',
-    StudyDeploymentStatusTypes.Running: 'pages.about.status.running.message',
-    StudyDeploymentStatusTypes.Stopped: 'pages.about.status.stopped.message',
-  };
 
   Widget _buildAnnouncementsTitle(BuildContext context) {
     RPLocalizations locale = RPLocalizations.of(context)!;
@@ -488,6 +440,55 @@ class StudyPageState extends State<StudyPage> {
       ),
     );
   }
+
+  void _redirectToUpdateStore() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    Uri url;
+    if (Platform.isAndroid) {
+      url = Uri.parse(
+          'https://play.google.com/store/apps/details?id=${packageInfo.packageName}');
+    } else if (Platform.isIOS) {
+      url = Uri.parse('https://apps.apple.com/app/id1569798025');
+    } else {
+      throw 'Unsupported platform';
+    }
+    var canLaunch = await canLaunchUrl(url);
+    if (canLaunch) {
+      await launchUrl(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  String getStatusText(
+    RPLocalizations locale,
+    StudyDeploymentStatusTypes deploymentStatusType,
+    AsyncSnapshot<StudyDeploymentStatus?> snapshot,
+  ) {
+    if (deploymentStatusType == StudyDeploymentStatusTypes.DeployingDevices) {
+      return locale.translate('pages.about.status.deploying_devices.message') +
+          snapshot.data!.deviceStatusList.first
+              .remainingDevicesToRegisterBeforeDeployment!
+              .join(' | ');
+    } else {
+      return locale.translate(studyStatusText[deploymentStatusType]!);
+    }
+  }
+
+  static Map<StudyDeploymentStatusTypes, Color> studyStatusColors = {
+    StudyDeploymentStatusTypes.Invited: CACHET.DEPLOYMENT_INVITED,
+    StudyDeploymentStatusTypes.DeployingDevices: CACHET.DEPLOYMENT_DEPLOYING,
+    StudyDeploymentStatusTypes.Running: CACHET.DEPLOYMENT_RUNNING,
+    StudyDeploymentStatusTypes.Stopped: CACHET.DEPLOYMENT_STOPPED,
+  };
+
+  static Map<StudyDeploymentStatusTypes, String> studyStatusText = {
+    StudyDeploymentStatusTypes.Invited: 'pages.about.status.invited.message',
+    StudyDeploymentStatusTypes.DeployingDevices:
+        'pages.about.status.deploying_devices.message',
+    StudyDeploymentStatusTypes.Running: 'pages.about.status.running.message',
+    StudyDeploymentStatusTypes.Stopped: 'pages.about.status.stopped.message',
+  };
 }
 
 extension CopyWithAdditional on DateTime {

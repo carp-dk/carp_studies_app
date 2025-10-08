@@ -1,119 +1,121 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>BGTaskSchedulerPermittedIdentifiers</key>
-	<array>
+	<dict>
+		<key>BGTaskSchedulerPermittedIdentifiers</key>
+		<array>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+		</array>
+		<key>CADisableMinimumFrameDurationOnPhone</key>
+		<true/>
+		<key>CFBundleDevelopmentRegion</key>
+		<string>$(DEVELOPMENT_LANGUAGE)</string>
+		<key>CFBundleDisplayName</key>
+		<string>CARP Studies</string>
+		<key>CFBundleExecutable</key>
+		<string>$(EXECUTABLE_NAME)</string>
+		<key>CFBundleIdentifier</key>
 		<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	</array>
-	<key>CADisableMinimumFrameDurationOnPhone</key>
-	<true/>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>CFBundleDisplayName</key>
-	<string>CARP Studies</string>
-	<key>CFBundleExecutable</key>
-	<string>$(EXECUTABLE_NAME)</string>
-	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundleLocalizations</key>
-	<array>
-		<string>en</string>
-		<string>Danish</string>
-	</array>
-	<key>CFBundleName</key>
-	<string>carp_study_app</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleShortVersionString</key>
-	<string>$(MARKETING_VERSION)</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLIconFile</key>
-			<string>carp_logo</string>
-			<key>CFBundleURLName</key>
-			<string>cans.cachet.dk</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>carp-studies</string>
-				<string>carp-studies-auth</string>
-			</array>
-		</dict>
-	</array>
-	<key>CFBundleVersion</key>
-	<string>$(CURRENT_PROJECT_VERSION)</string>
-	<key>FLTEnableImpeller</key>
-	<true/>
-	<key>FlutterDeepLinkingEnabled</key>
-	<true/>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>https</string>
-		<string>http</string>
-		<string>mailto</string>
-	</array>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
-	<key>LSSupportsOpeningDocumentsInPlace</key>
-	<true/>
-	<key>NSAppleMusicUsageDescription</key>
-	<string>CARP uses Apple Music</string>
-	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>CARP uses bluetooth to connect to wearable devices</string>
-	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>CARP uses bluetooth to connect to wearable devices</string>
-	<key>NSCalendarsUsageDescription</key>
-	<string>CARP collects calendar events to see how busy you are</string>
-	<key>NSCameraUsageDescription</key>
-	<string>CARP uses the camera to take pictures and/or videos for some tasks</string>
-	<key>NSContactsUsageDescription</key>
-	<string>CARP uses contacts</string>
-	<key>NSHealthShareUsageDescription</key>
-	<string>CARP collects data from the Apple Health database to give you better health insights</string>
-	<key>NSHealthUpdateUsageDescription</key>
-	<string>CARP collects data from the Apple Health database to give you better health insights</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>CARP uses the location API to extract overall mobility patterns</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>CARP uses the location API to extract overall mobility patterns</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>CARP uses the location API to extract overall mobility patterns</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>CARP uses the microphone to record ambient noise in the phone's environment</string>
-	<key>NSMotionUsageDescription</key>
-	<string>CARP uses the motion system to detects activities such as walking and biking</string>
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>CARP uses speech recognition </string>
-	<key>UIApplicationSupportsIndirectInputEvents</key>
-	<true/>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>bluetooth-central</string>
-		<string>bluetooth-peripheral</string>
-		<string>fetch</string>
-		<string>location</string>
-		<string>processing</string>
-	</array>
-	<key>UIFileSharingEnabled</key>
-	<true/>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
-	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-	</array>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
-</dict>
+		<key>CFBundleInfoDictionaryVersion</key>
+		<string>6.0</string>
+		<key>CFBundleLocalizations</key>
+		<array>
+			<string>en</string>
+			<string>Danish</string>
+		</array>
+		<key>CFBundleName</key>
+		<string>carp_study_app</string>
+		<key>CFBundlePackageType</key>
+		<string>APPL</string>
+		<key>CFBundleShortVersionString</key>
+		<string>$(MARKETING_VERSION)</string>
+		<key>CFBundleSignature</key>
+		<string>????</string>
+		<key>CFBundleURLTypes</key>
+		<array>
+			<dict>
+				<key>CFBundleTypeRole</key>
+				<string>Editor</string>
+				<key>CFBundleURLIconFile</key>
+				<string>carp_logo</string>
+				<key>CFBundleURLName</key>
+				<string>com.cachet.carpstudyapp</string>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>carp-studies</string>
+					<string>carp-studies-auth</string>
+				</array>
+			</dict>
+		</array>
+		<key>CFBundleVersion</key>
+		<string>$(CURRENT_PROJECT_VERSION)</string>
+		<key>FLTEnableImpeller</key>
+		<true/>
+		<key>FlutterDeepLinkingEnabled</key>
+		<true/>
+		<key>ITSAppUsesNonExemptEncryption</key>
+		<false/>
+		<key>LSApplicationQueriesSchemes</key>
+		<array>
+			<string>https</string>
+			<string>http</string>
+			<string>mailto</string>
+		</array>
+		<key>LSRequiresIPhoneOS</key>
+		<true/>
+		<key>LSSupportsOpeningDocumentsInPlace</key>
+		<true/>
+		<key>NSAppleMusicUsageDescription</key>
+		<string>CARP uses Apple Music</string>
+		<key>NSBluetoothAlwaysUsageDescription</key>
+		<string>CARP uses bluetooth to connect to wearable devices</string>
+		<key>NSBluetoothPeripheralUsageDescription</key>
+		<string>CARP uses bluetooth to connect to wearable devices</string>
+		<key>NSCalendarsUsageDescription</key>
+		<string>CARP collects calendar events to see how busy you are</string>
+		<key>NSCameraUsageDescription</key>
+		<string>CARP uses the camera to take pictures and/or videos for some tasks</string>
+		<key>NSContactsUsageDescription</key>
+		<string>CARP uses contacts</string>
+		<key>NSHealthShareUsageDescription</key>
+		<string>CARP collects data from the Apple Health database to give you better health insights</string>
+		<key>NSHealthUpdateUsageDescription</key>
+		<string>CARP collects data from the Apple Health database to give you better health insights</string>
+		<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+		<string>CARP uses the location API to extract overall mobility patterns</string>
+		<key>NSLocationAlwaysUsageDescription</key>
+		<string>CARP uses the location API to extract overall mobility patterns</string>
+		<key>NSLocationWhenInUseUsageDescription</key>
+		<string>CARP uses the location API to extract overall mobility patterns</string>
+		<key>NSMicrophoneUsageDescription</key>
+		<string>CARP uses the microphone to record ambient noise in the phone's environment</string>
+		<key>NSMotionUsageDescription</key>
+		<string>CARP uses the motion system to detects activities such as walking and biking</string>
+		<key>NSSpeechRecognitionUsageDescription</key>
+		<string>CARP uses speech recognition</string>
+		<key>UIApplicationSupportsIndirectInputEvents</key>
+		<true/>
+		<key>UIBackgroundModes</key>
+		<array>
+			<string>bluetooth-central</string>
+			<string>bluetooth-peripheral</string>
+			<string>fetch</string>
+			<string>location</string>
+			<string>processing</string>
+		</array>
+		<key>UIFileSharingEnabled</key>
+		<true/>
+		<key>UILaunchStoryboardName</key>
+		<string>LaunchScreen</string>
+		<key>UIMainStoryboardFile</key>
+		<string>Main</string>
+		<key>UISupportedInterfaceOrientations</key>
+		<array>
+			<string>UIInterfaceOrientationPortrait</string>
+		</array>
+		<key>UIViewControllerBasedStatusBarAppearance</key>
+		<false/>
+		<key>UIStatusBarHidden</key>
+		<true/>
+	</dict>
 </plist>

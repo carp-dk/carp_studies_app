@@ -44,6 +44,28 @@ class _LoginPageState extends State<LoginPage> {
               borderRadius: BorderRadius.circular(100),
             ),
             child: TextButton(
+              onPressed: () {
+                showDialog<void>(
+                  context: context,
+                  builder: (context) => QRViewExample(),
+                );
+              },
+              child: Text(
+                locale.translate("scan"),
+                style: const TextStyle(color: Color(0xffffffff), fontSize: 22),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 16, horizontal: 64),
+            width: MediaQuery.of(context).size.width,
+            height: 56,
+            decoration: BoxDecoration(
+              color: const Color(0xff006398),
+              borderRadius: BorderRadius.circular(100),
+            ),
+            child: TextButton(
               onPressed: () async {
                 bool isConnected = await bloc.checkConnectivity();
                 if (isConnected) {

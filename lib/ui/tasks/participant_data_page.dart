@@ -5,7 +5,6 @@ enum ParticipantStep {
   address,
   diagnosis,
   fullName,
-  informedConsent,
   phoneNumber,
   socialSecurityNumber,
   review
@@ -35,7 +34,6 @@ class ParticipantDataPageState extends State<ParticipantDataPage> {
     "address": ParticipantStep.address,
     "diagnosis": ParticipantStep.diagnosis,
     "full_name": ParticipantStep.fullName,
-    "informed_consent": ParticipantStep.informedConsent,
     "phone_number": ParticipantStep.phoneNumber,
     "ssn": ParticipantStep.socialSecurityNumber,
   };
@@ -44,7 +42,6 @@ class ParticipantDataPageState extends State<ParticipantDataPage> {
     ParticipantStep.address: 'Address',
     ParticipantStep.diagnosis: 'Diagnosis',
     ParticipantStep.fullName: 'Full Name',
-    ParticipantStep.informedConsent: 'Informed Consent',
     ParticipantStep.phoneNumber: 'Phone Number',
     ParticipantStep.socialSecurityNumber: 'Social Security Number',
     ParticipantStep.review: 'Review',
@@ -65,8 +62,6 @@ class ParticipantDataPageState extends State<ParticipantDataPage> {
     widget.model._firstNameController = TextEditingController();
     widget.model._middleNameController = TextEditingController();
     widget.model._lastNameController = TextEditingController();
-    widget.model._informedConsentDescriptionController =
-        TextEditingController();
     widget.model._phoneNumberCodeController = TextEditingController();
     widget.model._phoneNumberController = TextEditingController();
     widget.model._ssnCountryController = TextEditingController(text: "DK");
@@ -105,7 +100,6 @@ class ParticipantDataPageState extends State<ParticipantDataPage> {
       widget.model._conclusionController,
       widget.model._firstNameController,
       widget.model._lastNameController,
-      widget.model._informedConsentDescriptionController,
       widget.model._phoneNumberCodeController,
       widget.model._phoneNumberController,
       widget.model._ssnCountryController,
@@ -188,11 +182,6 @@ class ParticipantDataPageState extends State<ParticipantDataPage> {
       focusNode: widget.model._lastNameFocusNode,
     );
 
-    widget.model.informedConsentDescriptionField = StepField(
-      title: "tasks.participant_data.informed_consent.description",
-      controller: widget.model._informedConsentDescriptionController,
-    );
-
     widget.model.phoneNumberField = StepField(
       title: "tasks.participant_data.phone_number.phone_number",
       controller: widget.model._phoneNumberController,
@@ -217,7 +206,6 @@ class ParticipantDataPageState extends State<ParticipantDataPage> {
     widget.model._firstNameController.dispose();
     widget.model._middleNameController.dispose();
     widget.model._lastNameController.dispose();
-    widget.model._informedConsentDescriptionController.dispose();
     widget.model._phoneNumberController.dispose();
     widget.model._ssnController.dispose();
 
@@ -257,10 +245,6 @@ class ParticipantDataPageState extends State<ParticipantDataPage> {
         case ParticipantStep.fullName:
           _nextEnabled = widget.model._firstNameController.text.isNotEmpty &&
               widget.model._lastNameController.text.isNotEmpty;
-          break;
-        case ParticipantStep.informedConsent:
-          _nextEnabled = widget
-              .model._informedConsentDescriptionController.text.isNotEmpty;
           break;
         case ParticipantStep.phoneNumber:
           _nextEnabled = widget.model._phoneNumberController.text.isNotEmpty;
@@ -356,8 +340,6 @@ class ParticipantDataPageState extends State<ParticipantDataPage> {
           locale.translate("tasks.participant_data.diagnosis.title"),
       ParticipantStep.fullName:
           locale.translate("tasks.participant_data.full_name.title"),
-      ParticipantStep.informedConsent:
-          locale.translate("tasks.participant_data.informed_consent.title"),
       ParticipantStep.phoneNumber:
           locale.translate("tasks.participant_data.phone_number.title"),
       ParticipantStep.socialSecurityNumber:
@@ -427,10 +409,6 @@ class ParticipantDataPageState extends State<ParticipantDataPage> {
           _buildField(locale, widget.model.middleNameField, isOptional: true),
           _buildField(locale, widget.model.lastNameField),
         ]);
-        break;
-      case ParticipantStep.informedConsent:
-        fields.add(
-            _buildField(locale, widget.model.informedConsentDescriptionField));
         break;
       case ParticipantStep.phoneNumber:
         fields.add(_buildField(locale, widget.model.phoneNumberField,
@@ -646,24 +624,22 @@ class ParticipantDataPageState extends State<ParticipantDataPage> {
   InputDecoration _buildInputDecoration(
       RPLocalizations locale, StepField stepField, bool isThicc) {
     return InputDecoration(
-      labelText: locale.translate(stepField.title),
-      floatingLabelBehavior: FloatingLabelBehavior.always,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-        borderSide: BorderSide(color: Colors.blue),
-      ),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-        borderSide: BorderSide(color: Colors.grey.shade300),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-        borderSide: BorderSide(color: Colors.blue, width: 2),
-      ),
-      contentPadding: isThicc
-          ? const EdgeInsets.symmetric(horizontal: 16, vertical: 70)
-          : const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-    );
+        labelText: locale.translate(stepField.title),
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(color: Colors.blue),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(color: Colors.grey.shade300),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(color: Colors.blue, width: 2),
+        ),
+        contentPadding:
+            EdgeInsets.symmetric(horizontal: 16, vertical: isThicc ? 70 : 12));
   }
 
   /// Builds the action buttons at the bottom of the page.
@@ -737,11 +713,10 @@ class ParticipantDataPageState extends State<ParticipantDataPage> {
     ];
   }
 
+  // This method can be used to set the participant data
+  // if needed before submitting.
+  // Currently, it is called when the "Submit" button is pressed.
   void _setParticipantData() {
-    // This method can be used to set the participant data
-    // if needed before submitting.
-    // Currently, it is called when the "Submit" button is pressed.
-
     final Map<String, Data> participantData = {};
 
     final Map<ParticipantStep, Map<String, Data>> participantStepToDataType = {
@@ -799,7 +774,7 @@ class ParticipantDataPageState extends State<ParticipantDataPage> {
       participantData,
       bloc.study!.participantRoleName,
     );
-    AppPreferences.setHasFilledExpectedParticipantData();
+    LocalSettings().hasSeenConnectionInstructions = true;
   }
 
   Future<void> _showCancelConfirmationDialog() {

@@ -34,7 +34,7 @@ import 'package:open_settings_plus/core/open_settings_plus.dart';
 import 'package:appcheck/appcheck.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:app_version_update/app_version_update.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart' as qr;
 
 // the CARP packages
 import 'package:carp_serializable/carp_serializable.dart';
@@ -59,13 +59,13 @@ import 'package:carp_movesense_package/carp_movesense_package.dart';
 part 'blocs/app_bloc.dart';
 part 'blocs/util.dart';
 part 'blocs/sensing.dart';
-part 'blocs/app_preferences.dart';
 
 part 'data/local_settings.dart';
 part 'data/carp_backend.dart';
 part 'data/localization_loader.dart';
 part 'data/local_resource_manager.dart';
 part 'data/participant.dart';
+part 'data/local_participation_service.dart';
 
 part 'view_models/view_model.dart';
 part 'view_models/tasklist_page_model.dart';
@@ -97,6 +97,7 @@ part 'ui/pages/task_list_page.dart';
 part 'ui/pages/profile_page.dart';
 part 'ui/pages/error_page.dart';
 part 'ui/pages/login_page.dart';
+part 'ui/pages/qr_scanner.dart';
 part 'ui/pages/enable_connection_dialog.dart';
 part 'ui/pages/device_list_page.dart';
 part 'ui/pages/devices_page.authorization_dialog.dart';
@@ -130,15 +131,16 @@ part 'ui/widgets/logout_message.dart';
 part 'ui/widgets/dialog_title.dart';
 part 'ui/widgets/location_usage_dialog.dart';
 
-part 'ui/cards/steps_card.dart';
-part 'ui/cards/heart_rate_card.dart';
-part 'ui/cards/mobility_card.dart';
-part 'ui/cards/distance_card.dart';
-part 'ui/cards/survey_card.dart';
-part 'ui/cards/media_card.dart';
-part 'ui/cards/scoreboard_card.dart';
-part 'ui/cards/study_progress_card.dart';
 part 'ui/cards/activity_card.dart';
+part 'ui/cards/anonymous_card.dart';
+part 'ui/cards/distance_card.dart';
+part 'ui/cards/heart_rate_card.dart';
+part 'ui/cards/media_card.dart';
+part 'ui/cards/mobility_card.dart';
+part 'ui/cards/scoreboard_card.dart';
+part 'ui/cards/steps_card.dart';
+part 'ui/cards/study_progress_card.dart';
+part 'ui/cards/survey_card.dart';
 
 part 'main.g.dart';
 
