@@ -22,13 +22,12 @@ dependencies:
   carp_health_package: ^3.2.0
   carp_movesense_package: ^1.7.2
 
-  carp_webservices: ^3.7.0
+  carp_webservices: ^3.8.0
   carp_backend: ^1.9.2
 
   research_package: ^2.0.0
   cognition_package: ^1.6.1
 
-  flutter_launcher_icons: ^0.14.0
   url_launcher: ^6.1.5
   timeago: ^3.1.0
   expandable: ^5.0.1
@@ -41,7 +40,7 @@ dependencies:
     sdk: flutter
   intl: '>= 0.19.0 <= 0.21.0'
 
-  fl_chart: ^1.0.0
+  fl_chart: 1.0.0
   google_fonts: ^6.1.0
   go_router: ^15.0.0
   flutter_svg: ^2.0.4
@@ -56,9 +55,10 @@ dependencies:
   app_version_update: ^6.1.3
   country_code_picker: ^3.3.0
   intl_phone_number_input: ^0.7.4
+  qr_code_scanner_plus: ^2.0.10+1
 
 dependency_overrides:
-  polar: 7.5.1
+  # polar: 7.5.1
 
   # camera_android_camerax: 0.6.10+1
   # flutter_plugin_android_lifecycle: 2.0.24
@@ -93,7 +93,7 @@ dependency_overrides:
   # carp_movesense_package:
   #   path: ../carp/carp.sensing-flutter/packages/carp_movesense_package/
   # carp_webservices:
-  #   path: ../carp/carp.sensing-flutter/backends/carp_webservices/
+  #   path: ../carp.sensing-flutter/backends/carp_webservices/
   # carp_backend:
   #   path: ../carp/carp.sensing-flutter/backends/carp_backend/
   # research_package: 
@@ -117,11 +117,7 @@ dev_dependencies:
 #  2. add the 'flutter_icons:' section below
 #  3. run 'flutter pub get'
 #  3. run 'dart run flutter_launcher_icons:main'
-flutter_launcher_icons:
-  android: true
-  ios: true
-  remove_alpha_ios: true
-  image_path: "assets/logo.png"
+
 
 flutter:
   uses-material-design: true

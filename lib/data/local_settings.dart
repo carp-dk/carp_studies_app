@@ -120,6 +120,11 @@ class LocalSettings {
         );
   }
 
+  bool get isAnonymous =>
+      Settings().preferences!.getBool('isAnonymous') ?? false;
+  set isAnonymous(bool value) =>
+      Settings().preferences!.setBool('isAnonymous', value);
+
   /// The study deployment id for the currently running deployment.
   String? get studyDeploymentId => _study?.studyDeploymentId;
 

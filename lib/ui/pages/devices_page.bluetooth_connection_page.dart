@@ -326,7 +326,7 @@ class _BluetoothConnectionPageState extends State<BluetoothConnectionPage> {
                           selected: bluetoothDevice.key == selected,
                           title: Text(
                             bluetoothDevice.value.device.platformName,
-                            style: healthServiceConnectTitleStyle,
+                            style: healthServiceConnectMessageStyle,
                           ),
                           selectedTileColor: Theme.of(context)
                               .primaryColor

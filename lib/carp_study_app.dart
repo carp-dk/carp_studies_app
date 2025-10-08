@@ -49,7 +49,7 @@ class CarpStudyAppState extends State<CarpStudyApp> {
           GoRoute(
               path: homeRoute,
               parentNavigatorKey: _shellNavigatorKey,
-              redirect: (context, state) {
+              redirect: (context, state) async {
                 if (bloc.deploymentMode != DeploymentMode.local) {
                   if (!bloc.backend.isAuthenticated) {
                     return LoginPage.route;
@@ -57,7 +57,6 @@ class CarpStudyAppState extends State<CarpStudyApp> {
                     return InvitationListPage.route;
                   }
                 }
-
                 if (!bloc.hasInformedConsentBeenAccepted) {
                   return InformedConsentPage.route;
                 }
@@ -211,24 +210,7 @@ class CarpStudyAppState extends State<CarpStudyApp> {
         }
         return supportedLocales.first; // default to EN
       },
-      // theme: ThemeData(
-      //   extensions: [
-      //     RPColors(
-      //       primary: CarpColors().primary,
-      //     ),
-      //   ],
-      // ),
-
-      // theme: ThemeData(
-      //   extensions: [
-      //     researchPackageTheme.extension<RPColors>()!.copyWith(
-      //           primary: CarpColors().primary,
-      //         ),
-      //   ],
-      // ),
-
-      // theme: researchPackageTheme,
-
+      locale: bloc.localization?.locale,
       theme: researchPackageTheme.copyWith(
         extensions: [
           researchPackageTheme.extension<RPColors>()!.copyWith(
@@ -236,7 +218,6 @@ class CarpStudyAppState extends State<CarpStudyApp> {
               ),
         ],
       ),
-
       darkTheme: researchPackageDarkTheme,
       debugShowCheckedModeBanner: true,
       routerConfig: _router,
