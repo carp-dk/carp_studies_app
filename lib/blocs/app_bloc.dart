@@ -119,6 +119,11 @@ class StudyAppBLoC extends ChangeNotifier {
           ? LocalResourceManager()
           : CarpResourceManager()) as InformedConsentManager;
 
+  ParticipationService get participationService =>
+      (bloc.deploymentMode == DeploymentMode.local
+          ? LocalParticipationService()
+          : CarpParticipationService());
+
   CarpBackend get backend => _backend;
 
   /// The study running on this phone.
@@ -135,8 +140,6 @@ class StudyAppBLoC extends ChangeNotifier {
 
   Set<ExpectedParticipantData?> get expectedParticipantData =>
       deployment?.expectedParticipantData ?? {};
-
-  // CarpParticipationService()
 
   /// Get the status for the current study deployment.
   /// Returns null if the study is not yet deployed on this phone.
@@ -322,18 +325,23 @@ class StudyAppBLoC extends ChangeNotifier {
     _state = StudyAppState.configured;
   }
 
+  Future<List<ParticipantData>> getParticipantDataListFromDeployment() async =>
+      (deployment == null)
+          ? []
+          : await participationService
+              .getParticipantDataList([deployment!.studyDeploymentId]);
+
   /// Set the participant data for this study.
   void setParticipantData(
     String studyDeploymentId,
     Map<String, Data> data, [
     String? inputByParticipantRole,
-  ]) {
-    CarpParticipationService().setParticipantData(
-      studyDeploymentId,
-      data,
-      inputByParticipantRole,
-    );
-  }
+  ]) =>
+      participationService.setParticipantData(
+        studyDeploymentId,
+        data,
+        inputByParticipantRole,
+      );
 
   /// Does this app use location permissions?
   bool get usingLocationPermissions => true;

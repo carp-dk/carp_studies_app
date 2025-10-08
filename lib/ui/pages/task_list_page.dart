@@ -45,10 +45,17 @@ class TaskListPageState extends State<TaskListPage>
     with TickerProviderStateMixin {
   late TabController _tabController;
 
+  bool? showParticipantDataCard = false;
+
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    bloc.getParticipantDataListFromDeployment().then((value) {
+      setState(() {
+        showParticipantDataCard = value.isEmpty;
+      });
+    });
 
     _tabController.addListener(() {
       setState(() {});
@@ -152,19 +159,10 @@ class TaskListPageState extends State<TaskListPage>
                               ),
                             ),
                           ),
-                          FutureBuilder<bool>(
-                            future: AppPreferences
-                                .hasFilledExpectedParticipantData(),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData && snapshot.data == true) {
-                                return const SliverToBoxAdapter();
-                              } else {
-                                return SliverToBoxAdapter(
-                                  child: _buildParticipantDataCard(),
-                                );
-                              }
-                            },
-                          ),
+                          if (showParticipantDataCard!)
+                            SliverToBoxAdapter(
+                              child: _buildParticipantDataCard(),
+                            ),
                           SliverList(
                             delegate: SliverChildBuilderDelegate(
                               (BuildContext context, int index) {

@@ -57,6 +57,7 @@ class ProfilePageState extends State<ProfilePage> {
               ],
             ),
           ),
+          LocalSettings().isAnonymous ? AnonymousCard() : SizedBox.shrink(),
           Flexible(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -76,11 +77,17 @@ class ProfilePageState extends State<ProfilePage> {
                       ),
                       _buildListTile(
                         locale.translate('pages.profile.full_name'),
-                        widget.model.fullName,
+                        LocalSettings().isAnonymous
+                            ? locale
+                                .translate('pages.about.anonymous.anonymous')
+                            : widget.model.fullName,
                       ),
                       _buildListTile(
                         locale.translate('pages.profile.email'),
-                        widget.model.email,
+                        LocalSettings().isAnonymous
+                            ? locale
+                                .translate('pages.about.anonymous.anonymous')
+                            : widget.model.email,
                       ),
                     ],
                   ),

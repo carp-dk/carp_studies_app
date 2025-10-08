@@ -26,6 +26,8 @@ class LocalSettings {
   Participant? _participant;
   SmartphoneStudy? _study;
 
+  bool hasSeenBluetoothConnectionInstructions = false;
+
   static final LocalSettings _instance = LocalSettings._();
   factory LocalSettings() => _instance;
   LocalSettings._() : super();
@@ -106,6 +108,22 @@ class LocalSettings {
           json.encode(_$SmartphoneStudyToJson(study!)),
         );
   }
+
+  bool get hasSeenConnectionInstructions =>
+      hasSeenBluetoothConnectionInstructions;
+
+  set hasSeenConnectionInstructions(bool seen) {
+    hasSeenBluetoothConnectionInstructions = seen;
+    Settings().preferences?.setBool(
+          'hasSeenBluetoothConnectionInstructions',
+          seen,
+        );
+  }
+
+  bool get isAnonymous =>
+      Settings().preferences!.getBool('isAnonymous') ?? false;
+  set isAnonymous(bool value) =>
+      Settings().preferences!.setBool('isAnonymous', value);
 
   /// The study deployment id for the currently running deployment.
   String? get studyDeploymentId => _study?.studyDeploymentId;

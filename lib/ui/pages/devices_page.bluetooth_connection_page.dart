@@ -21,6 +21,8 @@ class _BluetoothConnectionPageState extends State<BluetoothConnectionPage> {
   _BluetoothConnectionPageState(this.currentStep);
 
   CurrentStep currentStep;
+  bool isConnecting = false;
+  Timer? _connectionTimeoutTimer;
 
   @override
   initState() {
@@ -31,11 +33,11 @@ class _BluetoothConnectionPageState extends State<BluetoothConnectionPage> {
   @override
   void dispose() {
     FlutterBluePlus.stopScan();
-    AppPreferences.setHasSeenBluetoothConnectionInstructions();
+    _connectionTimeoutTimer?.cancel();
+    LocalSettings().hasSeenBluetoothConnectionInstructions = true;
     super.dispose();
   }
 
-  // CurrentStep currentStep = CurrentStep.scan;
   BluetoothDevice? selectedDevice;
   int selected = 40;
 
@@ -45,43 +47,54 @@ class _BluetoothConnectionPageState extends State<BluetoothConnectionPage> {
 
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          color: Theme.of(context).colorScheme.secondary,
-          child: Column(
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
-                child: const CarpAppBar(hasProfileIcon: true),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Column(
-                    children: [
-                      _buildDialogTitle(locale),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: SizedBox(
-                            child: _buildStepContent(locale),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 16),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: _buildActionButtons(locale),
-                        ),
-                      ),
-                    ],
+        child: Stack(
+          children: [
+            Container(
+              color: Theme.of(context).colorScheme.secondary,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 16),
+                    child: const CarpAppBar(hasProfileIcon: true),
                   ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Column(
+                        children: [
+                          _buildDialogTitle(locale),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SizedBox(
+                                child: _buildStepContent(locale),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 16),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: _buildActionButtons(locale),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            if (isConnecting)
+              Container(
+                color: Colors.black26,
+                child: const Center(
+                  child: CircularProgressIndicator(),
                 ),
               ),
-            ],
-          ),
+          ],
         ),
       ),
     );
@@ -149,11 +162,7 @@ class _BluetoothConnectionPageState extends State<BluetoothConnectionPage> {
         }, true, null, null),
         buildTranslatedButton(
           "next",
-          () {
-            if (selectedDevice != null) {
-              setState(() => currentStep = CurrentStep.done);
-            }
-          },
+          _connectDevice(),
           selectedDevice != null,
           ElevatedButton.styleFrom(
             backgroundColor: Theme.of(context).extension<RPColors>()!.primary,
@@ -193,10 +202,7 @@ class _BluetoothConnectionPageState extends State<BluetoothConnectionPage> {
           "done",
           () {
             FlutterBluePlus.stopScan();
-            if (selectedDevice != null) {
-              widget.device.connectToDevice(selectedDevice!);
-              context.pop(true);
-            }
+            context.pop(true);
           },
           true,
           ElevatedButton.styleFrom(
@@ -210,6 +216,69 @@ class _BluetoothConnectionPageState extends State<BluetoothConnectionPage> {
       ],
     };
     return stepButtonConfigs[currentStep] ?? [];
+  }
+
+  Future<void> Function() _connectDevice() {
+    return () async {
+      RPLocalizations locale = RPLocalizations.of(context)!;
+      if (selectedDevice != null) {
+        setState(() {
+          isConnecting = true;
+        });
+
+        FlutterBluePlus.stopScan();
+        widget.device.connectToDevice(selectedDevice!);
+        widget.device.statusEvents.listen((state) {
+          if (state == DeviceStatus.connected) {
+            _connectionTimeoutTimer?.cancel();
+            if (mounted) {
+              setState(() {
+                currentStep = CurrentStep.done;
+                isConnecting = false;
+              });
+            }
+          } else if (state == DeviceStatus.disconnected) {
+            _connectionTimeoutTimer?.cancel();
+            if (mounted) {
+              setState(() {
+                currentStep = CurrentStep.scan;
+                isConnecting = false;
+              });
+              FlutterBluePlus.startScan();
+            }
+          }
+        });
+
+        // Start 7-second timeout
+        _connectionTimeoutTimer = Timer(const Duration(seconds: 7), () {
+          if (isConnecting && mounted) {
+            setState(() {
+              isConnecting = false;
+            });
+            showDialog<void>(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text(locale.translate(
+                      "pages.devices.connection.connection_failed.title")),
+                  content: Text(locale.translate(
+                      "pages.devices.connection.connection_failed.message")),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(locale.translate("ok")),
+                    ),
+                  ],
+                );
+              },
+            );
+            widget.device.status = DeviceStatus.disconnected;
+          }
+        });
+      }
+    };
   }
 
   Widget stepContent(
@@ -257,7 +326,7 @@ class _BluetoothConnectionPageState extends State<BluetoothConnectionPage> {
                           selected: bluetoothDevice.key == selected,
                           title: Text(
                             bluetoothDevice.value.device.platformName,
-                            style: healthServiceConnectTitleStyle,
+                            style: healthServiceConnectMessageStyle,
                           ),
                           selectedTileColor: Theme.of(context)
                               .primaryColor
