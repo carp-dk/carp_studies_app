@@ -59,9 +59,14 @@ class HomePageState extends State<HomePage> {
     // Setting up sensing, which entails;
     //  - asking for location permissions
     //  - configuring the study
+    //  - loading localizations
     //  - starting sensing
     askForLocationPermissions(context)
-        .then((_) => bloc.configureStudy().then((_) => bloc.start()));
+        .then((_) => bloc.configureStudy().then((_) {
+              // Load localizations for the current locale and study
+              CarpStudyApp.reloadLocale(context);
+              bloc.start();
+            }));
 
     if (Platform.isAndroid) {
       // Check if HealthConnect is installed

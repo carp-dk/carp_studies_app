@@ -210,6 +210,7 @@ class StudyPageState extends State<StudyPage> {
 
   Widget _studyStatusCard() {
     RPLocalizations locale = RPLocalizations.of(context)!;
+
     return FutureBuilder<StudyDeploymentStatus?>(
       future: bloc.studyDeploymentStatus,
       builder: (context, snapshot) {
